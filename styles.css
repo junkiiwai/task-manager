@@ -120,24 +120,24 @@ body {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 1000px) and (max-width: 1399px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 999px) {
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -185,6 +185,7 @@ body {
     transition: all 0.3s ease;
     position: relative;
     cursor: pointer;
+    overflow-x: auto;
 }
 
 .project-card:hover {
@@ -205,42 +206,43 @@ body {
 
 .project-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 0.8fr 1.2fr 0.8fr 1fr 0.8fr;
-    gap: 12px;
+    grid-template-columns: 2.5fr 1.2fr 0.8fr 1.5fr 0.8fr 1.2fr 0.8fr;
+    gap: 15px;
     align-items: center;
     font-size: 13px;
+    min-width: 800px;
 }
 
 .project-name {
     font-weight: 600;
     color: #2c3e50;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .project-assignee {
     color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .project-hours {
     color: #6c757d;
     text-align: center;
+    white-space: nowrap;
 }
 
 .project-deadline {
     color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .project-remaining {
     color: #6c757d;
     text-align: center;
+    white-space: nowrap;
 }
 
 .project-progress {
@@ -324,42 +326,43 @@ body {
 
 .child-task-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 0.8fr 1.2fr 0.8fr 1fr 0.8fr;
-    gap: 8px;
+    grid-template-columns: 2.5fr 1.2fr 0.8fr 1.5fr 0.8fr 1.2fr 0.8fr;
+    gap: 10px;
     align-items: center;
     font-size: 12px;
+    min-width: 800px;
 }
 
 .child-task-name {
     font-weight: 500;
     color: #2c3e50;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .child-task-assignee {
     color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .child-task-hours {
     color: #6c757d;
     text-align: center;
+    white-space: nowrap;
 }
 
 .child-task-deadline {
     color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .child-task-remaining {
     color: #6c757d;
     text-align: center;
+    white-space: nowrap;
 }
 
 .child-task-progress {
