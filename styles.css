@@ -176,17 +176,18 @@ body {
 
 /* プロジェクトカード */
 .project-card {
-    background: white;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 3px solid #667eea;
-    transition: all 0.3s ease;
-    position: relative;
-    cursor: pointer;
-    overflow-x: auto;
-    min-width: 1200px;
+    background: white !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    border-left: 3px solid #667eea !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    cursor: pointer !important;
+    overflow-x: auto !important;
+    min-width: 1200px !important;
+    width: 1200px !important;
 }
 
 .project-card:hover {
@@ -206,46 +207,57 @@ body {
 }
 
 .project-row {
-    display: grid;
-    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px;
-    gap: 20px;
-    align-items: center;
-    font-size: 13px;
-    min-width: 1200px;
+    display: grid !important;
+    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px !important;
+    gap: 20px !important;
+    align-items: center !important;
+    font-size: 13px !important;
+    min-width: 1200px !important;
+    width: 1200px !important;
 }
 
 .project-name {
-    font-weight: 600;
-    color: #2c3e50;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 300px !important;
+    min-width: 300px !important;
 }
 
 .project-assignee {
-    color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: #6c757d !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 150px !important;
+    min-width: 150px !important;
 }
 
 .project-hours {
-    color: #6c757d;
-    text-align: center;
-    white-space: nowrap;
+    color: #6c757d !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    width: 100px !important;
+    min-width: 100px !important;
 }
 
 .project-deadline {
-    color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: #6c757d !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 200px !important;
+    min-width: 200px !important;
 }
 
 .project-remaining {
-    color: #6c757d;
-    text-align: center;
-    white-space: nowrap;
+    color: #6c757d !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    width: 100px !important;
+    min-width: 100px !important;
 }
 
 .project-progress {
@@ -328,12 +340,13 @@ body {
 }
 
 .child-task-row {
-    display: grid;
-    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px;
-    gap: 15px;
-    align-items: center;
-    font-size: 12px;
-    min-width: 1200px;
+    display: grid !important;
+    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px !important;
+    gap: 15px !important;
+    align-items: center !important;
+    font-size: 12px !important;
+    min-width: 1200px !important;
+    width: 1200px !important;
 }
 
 .child-task-name {
