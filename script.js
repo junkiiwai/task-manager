@@ -628,11 +628,25 @@ class TaskManager {
     }
 }
 
-// アプリケーション初期化
-console.log('スクリプト読み込み開始');
-try {
-    const taskManager = new TaskManager();
-    console.log('TaskManagerインスタンス作成完了');
-} catch (error) {
-    console.error('TaskManager初期化エラー:', error);
-} 
+// DOM読み込み完了後の初期化
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== DOM読み込み完了 ===');
+    console.log('document ready:', document.readyState);
+    
+    // アプリケーション初期化
+    console.log('スクリプト読み込み開始');
+    try {
+        const taskManager = new TaskManager();
+        console.log('TaskManagerインスタンス作成完了');
+    } catch (error) {
+        console.error('TaskManager初期化エラー:', error);
+    }
+    
+    console.log('=== 初期化完了 ===');
+});
+
+// 基本的なテスト
+console.log('=== 基本的なテスト開始 ===');
+console.log('document ready:', document.readyState);
+console.log('window loaded:', window.onload);
+console.log('=== 基本的なテスト完了 ==='); 
