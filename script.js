@@ -8,7 +8,104 @@ class TaskManager {
         this.currentUser = null;
         console.log('保存されたタスク:', this.tasks);
         console.log('保存された担当者:', this.assignees);
+        
+        // テストデータがない場合は作成
+        if (this.tasks.length === 0) {
+            this.createTestData();
+        }
+        
         this.init();
+    }
+
+    // テストデータ作成
+    createTestData() {
+        console.log('テストデータを作成します');
+        
+        const now = new Date();
+        const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+        const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+        
+        const testTasks = [
+            {
+                id: '1',
+                name: 'プロジェクトA',
+                description: 'テストプロジェクトA',
+                assignee: '田中太郎',
+                priority: 3,
+                estimatedHours: 20,
+                deadline: nextWeek.toISOString(),
+                parentTaskId: null,
+                childTaskId: null,
+                progress: 30,
+                memoHistory: [],
+                createdAt: now.toISOString(),
+                updatedAt: now.toISOString()
+            },
+            {
+                id: '2',
+                name: '子タスクA-1',
+                description: 'プロジェクトAの子タスク1',
+                assignee: '佐藤花子',
+                priority: 4,
+                estimatedHours: 8,
+                deadline: tomorrow.toISOString(),
+                parentTaskId: '1',
+                childTaskId: null,
+                progress: 50,
+                memoHistory: [],
+                createdAt: now.toISOString(),
+                updatedAt: now.toISOString()
+            },
+            {
+                id: '3',
+                name: '孫タスクA-1-1',
+                description: '子タスクA-1の孫タスク',
+                assignee: '鈴木一郎',
+                priority: 5,
+                estimatedHours: 4,
+                deadline: tomorrow.toISOString(),
+                parentTaskId: '2',
+                childTaskId: null,
+                progress: 80,
+                memoHistory: [],
+                createdAt: now.toISOString(),
+                updatedAt: now.toISOString()
+            },
+            {
+                id: '4',
+                name: '子タスクA-2',
+                description: 'プロジェクトAの子タスク2',
+                assignee: '高橋美咲',
+                priority: 3,
+                estimatedHours: 12,
+                deadline: nextWeek.toISOString(),
+                parentTaskId: '1',
+                childTaskId: null,
+                progress: 20,
+                memoHistory: [],
+                createdAt: now.toISOString(),
+                updatedAt: now.toISOString()
+            },
+            {
+                id: '5',
+                name: 'プロジェクトB',
+                description: 'テストプロジェクトB',
+                assignee: '山田次郎',
+                priority: 2,
+                estimatedHours: 15,
+                deadline: nextWeek.toISOString(),
+                parentTaskId: null,
+                childTaskId: null,
+                progress: 60,
+                memoHistory: [],
+                createdAt: now.toISOString(),
+                updatedAt: now.toISOString()
+            }
+        ];
+        
+        this.tasks = testTasks;
+        this.saveTasks();
+        console.log('テストデータを作成しました:', this.tasks);
     }
 
     init() {
@@ -285,10 +382,17 @@ class TaskManager {
 
     // 子タスクを階層表示（横1行表示）
     renderChildTasks(childTasks, level = 1) {
-        if (childTasks.length === 0) return '';
+        console.log(`renderChildTasks呼び出し: level=${level}, childTasks=`, childTasks);
+        
+        if (childTasks.length === 0) {
+            console.log(`level ${level}: 子タスクなし`);
+            return '';
+        }
 
         let html = '';
         childTasks.forEach(child => {
+            console.log(`level ${level}: 子タスク処理中:`, child.name);
+            
             const childLatestDeadline = this.calculateLatestDeadline(child.id);
             const childRemainingDays = this.calculateRemainingDays(childLatestDeadline);
             const childTotalHours = this.calculateTotalHours(child.id);
@@ -317,6 +421,7 @@ class TaskManager {
             `;
         });
 
+        console.log(`level ${level}: 生成されたHTML:`, html);
         return html;
     }
 
