@@ -10,6 +10,7 @@ class TaskManager {
 
     init() {
         this.setupEventListeners();
+        this.setupChildTaskEvents();
         this.renderTasks();
         this.renderAssignees();
         this.loadCurrentUser();
@@ -175,7 +176,7 @@ class TaskManager {
         const projects = this.tasks.filter(task => !task.parentTaskId);
         
         projects.forEach(project => {
-            const projectElement = this.createTaskElement(project);
+            const projectElement = this.createProjectElement(project);
             
             if (project.progress >= 100) {
                 completedContainer.appendChild(projectElement);
@@ -183,6 +184,104 @@ class TaskManager {
                 projectsContainer.appendChild(projectElement);
             }
         });
+    }
+
+    // プロジェクト要素作成（階層表示）
+    createProjectElement(project) {
+        const projectElement = document.createElement('div');
+        projectElement.className = `project-card ${project.progress >= 100 ? 'completed' : ''}`;
+        projectElement.dataset.taskId = project.id;
+
+        const remainingDays = this.calculateRemainingDays(project.deadline);
+        const totalHours = this.calculateTotalHours(project.id);
+        const totalProgress = this.calculateTotalProgress(project.id);
+
+        // 子タスクを取得
+        const childTasks = this.getChildTasks(project.id);
+
+        projectElement.innerHTML = `
+            <div class="project-header">
+                <div class="project-name">${project.name}</div>
+                <div class="project-priority priority-${project.priority}">P${project.priority}</div>
+            </div>
+            <div class="project-info">
+                <span><i class="fas fa-user"></i> ${project.assignee || '未設定'}</span>
+                <span><i class="fas fa-clock"></i> ${totalHours}h</span>
+                <span><i class="fas fa-calendar"></i> ${this.formatDeadline(project.deadline)}</span>
+                <span><i class="fas fa-calendar-day"></i> 残${remainingDays}日</span>
+            </div>
+            <div class="project-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: ${totalProgress}%"></div>
+                </div>
+                <div class="progress-text">${totalProgress}%</div>
+            </div>
+            <div class="child-tasks" id="child-tasks-${project.id}">
+                ${this.renderChildTasks(childTasks, 1)}
+            </div>
+        `;
+
+        projectElement.addEventListener('click', (e) => {
+            // プロジェクトヘッダー部分のみクリック可能
+            if (e.target.closest('.project-header') || e.target.closest('.project-info') || e.target.closest('.project-progress')) {
+                this.showTaskDetail(project.id);
+            }
+        });
+
+        return projectElement;
+    }
+
+    // 子タスクのクリックイベントを設定
+    setupChildTaskEvents() {
+        document.addEventListener('click', (e) => {
+            const childTask = e.target.closest('.child-task');
+            if (childTask) {
+                const taskId = childTask.dataset.taskId;
+                this.showTaskDetail(taskId);
+            }
+        });
+    }
+
+    // 子タスクを取得
+    getChildTasks(parentId) {
+        return this.tasks.filter(task => task.parentTaskId === parentId);
+    }
+
+    // 子タスクを階層表示
+    renderChildTasks(childTasks, level = 1) {
+        if (childTasks.length === 0) return '';
+
+        let html = '';
+        childTasks.forEach(child => {
+            const childRemainingDays = this.calculateRemainingDays(child.deadline);
+            const childTotalHours = this.calculateTotalHours(child.id);
+            const childTotalProgress = this.calculateTotalProgress(child.id);
+            const grandChildTasks = this.getChildTasks(child.id);
+
+            html += `
+                <div class="child-task level-${level}" data-task-id="${child.id}">
+                    <div class="child-task-header">
+                        <div class="child-task-name">${child.name}</div>
+                        <div class="child-task-priority priority-${child.priority}">P${child.priority}</div>
+                    </div>
+                    <div class="child-task-info">
+                        <span><i class="fas fa-user"></i> ${child.assignee || '未設定'}</span>
+                        <span><i class="fas fa-clock"></i> ${childTotalHours}h</span>
+                        <span><i class="fas fa-calendar"></i> ${this.formatDeadline(child.deadline)}</span>
+                        <span><i class="fas fa-calendar-day"></i> 残${childRemainingDays}日</span>
+                    </div>
+                    <div class="child-task-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
+                        </div>
+                        <div class="progress-text">${childTotalProgress}%</div>
+                    </div>
+                    ${this.renderChildTasks(grandChildTasks, level + 1)}
+                </div>
+            `;
+        });
+
+        return html;
     }
 
     // タスク要素作成
@@ -365,6 +464,7 @@ class TaskManager {
         this.saveAssignees();
         this.renderAssigneeList();
         this.populateAssigneeSelect();
+        this.addUserSelector(); // ユーザー選択UIを更新
 
         document.getElementById('newAssigneeName').value = '';
         document.getElementById('newAssigneeGithub').value = '';
@@ -377,6 +477,7 @@ class TaskManager {
             this.saveAssignees();
             this.renderAssigneeList();
             this.populateAssigneeSelect();
+            this.addUserSelector(); // ユーザー選択UIを更新
         }
     }
 
@@ -391,6 +492,34 @@ class TaskManager {
         // 設定された担当者から選択できるようにする
         if (this.assignees.length > 0) {
             this.currentUser = this.assignees[0].name;
+        }
+        
+        // ユーザー選択UIを追加
+        this.addUserSelector();
+    }
+
+    // ユーザー選択UIを追加
+    addUserSelector() {
+        const header = document.querySelector('.header-controls');
+        if (header && this.assignees.length > 0) {
+            const userSelector = document.createElement('div');
+            userSelector.className = 'user-selector';
+            userSelector.innerHTML = `
+                <select id="currentUserSelect" class="user-select">
+                    ${this.assignees.map(assignee => 
+                        `<option value="${assignee.name}" ${assignee.name === this.currentUser ? 'selected' : ''}>
+                            ${assignee.name}
+                        </option>`
+                    ).join('')}
+                </select>
+            `;
+            
+            header.insertBefore(userSelector, header.firstChild);
+            
+            // ユーザー変更イベント
+            document.getElementById('currentUserSelect').addEventListener('change', (e) => {
+                this.currentUser = e.target.value;
+            });
         }
     }
 
