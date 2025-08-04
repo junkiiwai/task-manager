@@ -2,18 +2,23 @@
 
 class TaskManager {
     constructor() {
+        console.log('TaskManagerコンストラクタ開始');
         this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         this.assignees = JSON.parse(localStorage.getItem('assignees')) || [];
         this.currentUser = null;
+        console.log('保存されたタスク:', this.tasks);
+        console.log('保存された担当者:', this.assignees);
         this.init();
     }
 
     init() {
+        console.log('TaskManager初期化開始');
         this.setupEventListeners();
         this.setupChildTaskEvents();
         this.renderTasks();
         this.renderAssignees();
         this.loadCurrentUser();
+        console.log('TaskManager初期化完了');
     }
 
     setupEventListeners() {
@@ -624,4 +629,10 @@ class TaskManager {
 }
 
 // アプリケーション初期化
-const taskManager = new TaskManager(); 
+console.log('スクリプト読み込み開始');
+try {
+    const taskManager = new TaskManager();
+    console.log('TaskManagerインスタンス作成完了');
+} catch (error) {
+    console.error('TaskManager初期化エラー:', error);
+} 
