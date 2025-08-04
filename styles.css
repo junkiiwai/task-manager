@@ -13,7 +13,7 @@ body {
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -120,24 +120,24 @@ body {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(1200px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1800px) {
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (min-width: 1000px) and (max-width: 1399px) {
+@media (min-width: 1400px) and (max-width: 1799px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 999px) {
+@media (max-width: 1399px) {
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -186,6 +186,7 @@ body {
     position: relative;
     cursor: pointer;
     overflow-x: auto;
+    min-width: 1200px;
 }
 
 .project-card:hover {
@@ -206,25 +207,26 @@ body {
 
 .project-row {
     display: grid;
-    grid-template-columns: 2.5fr 1.2fr 0.8fr 1.5fr 0.8fr 1.2fr 0.8fr;
-    gap: 15px;
+    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px;
+    gap: 20px;
     align-items: center;
     font-size: 13px;
-    min-width: 800px;
+    min-width: 1200px;
 }
 
 .project-name {
     font-weight: 600;
     color: #2c3e50;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .project-assignee {
     color: #6c757d;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .project-hours {
@@ -235,8 +237,9 @@ body {
 
 .project-deadline {
     color: #6c757d;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .project-remaining {
@@ -326,25 +329,26 @@ body {
 
 .child-task-row {
     display: grid;
-    grid-template-columns: 2.5fr 1.2fr 0.8fr 1.5fr 0.8fr 1.2fr 0.8fr;
-    gap: 10px;
+    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px;
+    gap: 15px;
     align-items: center;
     font-size: 12px;
-    min-width: 800px;
+    min-width: 1200px;
 }
 
 .child-task-name {
     font-weight: 500;
     color: #2c3e50;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .child-task-assignee {
     color: #6c757d;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .child-task-hours {
@@ -355,8 +359,9 @@ body {
 
 .child-task-deadline {
     color: #6c757d;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .child-task-remaining {
