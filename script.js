@@ -151,7 +151,7 @@ class TaskManager {
             name: document.getElementById('taskName').value,
             description: document.getElementById('taskDescription').value,
             assignee: document.getElementById('assignee').value,
-            priority: parseInt(document.getElementById('priority').value),
+            priority: 3, // デフォルト値（自動計算されるため使用されない）
             estimatedHours: parseFloat(document.getElementById('estimatedHours').value) || 0,
             deadline: document.getElementById('deadline').value,
             parentTaskId: document.getElementById('parentTask').value || null,
@@ -181,8 +181,27 @@ class TaskManager {
         projectsContainer.innerHTML = '';
         completedContainer.innerHTML = '';
 
-        // プロジェクト（最上位タスク）を取得
+        // プロジェクト（最上位タスク）を取得してソート
         const projects = this.tasks.filter(task => !task.parentTaskId);
+        
+        // 優先度と残日数でソート
+        projects.sort((a, b) => {
+            const aHours = this.calculateTotalHours(a.id);
+            const bHours = this.calculateTotalHours(b.id);
+            const aRemaining = this.calculateRemainingDays(a.deadline);
+            const bRemaining = this.calculateRemainingDays(b.deadline);
+            
+            const aPriority = this.calculateAutoPriority(aHours, aRemaining);
+            const bPriority = this.calculateAutoPriority(bHours, bRemaining);
+            
+            // 優先度が高い順
+            if (aPriority !== bPriority) {
+                return bPriority - aPriority;
+            }
+            
+            // 優先度が同じ場合は残日数が少ない順
+            return aRemaining - bRemaining;
+        });
         
         console.log('全タスク:', this.tasks);
         console.log('プロジェクト（最上位タスク）:', projects);
@@ -201,46 +220,37 @@ class TaskManager {
         });
     }
 
-    // プロジェクト要素作成（階層表示）
+    // プロジェクト要素作成（横1行表示）
     createProjectElement(project) {
         const projectElement = document.createElement('div');
         projectElement.className = `project-card ${project.progress >= 100 ? 'completed' : ''}`;
         projectElement.dataset.taskId = project.id;
 
-        const remainingDays = this.calculateRemainingDays(project.deadline);
+        const latestDeadline = this.calculateLatestDeadline(project.id);
+        const remainingDays = this.calculateRemainingDays(latestDeadline);
         const totalHours = this.calculateTotalHours(project.id);
         const totalProgress = this.calculateTotalProgress(project.id);
-
-        // 子タスクを取得
-        const childTasks = this.getChildTasks(project.id);
+        const autoPriority = this.calculateAutoPriority(totalHours, remainingDays);
 
         projectElement.innerHTML = `
-            <div class="project-header">
+            <div class="project-row">
                 <div class="project-name">${project.name}</div>
-                <div class="project-priority priority-${project.priority}">P${project.priority}</div>
-            </div>
-            <div class="project-info">
-                <span><i class="fas fa-user"></i> ${project.assignee || '未設定'}</span>
-                <span><i class="fas fa-clock"></i> ${totalHours}h</span>
-                <span><i class="fas fa-calendar"></i> ${this.formatDeadline(project.deadline)}</span>
-                <span><i class="fas fa-calendar-day"></i> 残${remainingDays}日</span>
-            </div>
-            <div class="project-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: ${totalProgress}%"></div>
+                <div class="project-assignee">${project.assignee || '未設定'}</div>
+                <div class="project-hours">${totalHours}h</div>
+                <div class="project-deadline">${this.formatDeadline(latestDeadline)}</div>
+                <div class="project-remaining">${remainingDays}日</div>
+                <div class="project-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${totalProgress}%"></div>
+                    </div>
+                    <div class="progress-text">${totalProgress}%</div>
                 </div>
-                <div class="progress-text">${totalProgress}%</div>
-            </div>
-            <div class="child-tasks" id="child-tasks-${project.id}">
-                ${this.renderChildTasks(childTasks, 1)}
+                <div class="project-priority priority-${autoPriority}">P${autoPriority}</div>
             </div>
         `;
 
-        projectElement.addEventListener('click', (e) => {
-            // プロジェクトヘッダー部分のみクリック可能
-            if (e.target.closest('.project-header') || e.target.closest('.project-info') || e.target.closest('.project-progress')) {
-                this.showTaskDetail(project.id);
-            }
+        projectElement.addEventListener('click', () => {
+            this.showTaskDetail(project.id);
         });
 
         return projectElement;
@@ -550,6 +560,38 @@ class TaskManager {
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         
         return diffDays > 0 ? diffDays : 0;
+    }
+
+    // 自動優先度計算
+    calculateAutoPriority(hours, remainingDays) {
+        if (remainingDays === '-' || remainingDays === 0) return 5;
+        
+        const ratio = hours / remainingDays;
+        
+        if (ratio < 0.1) return 1;
+        if (ratio < 0.5) return 2;
+        if (ratio < 1) return 3;
+        if (ratio < 3) return 4;
+        return 5;
+    }
+
+    // 最遅期限計算（子タスク含む）
+    calculateLatestDeadline(taskId) {
+        const task = this.tasks.find(t => t.id === taskId);
+        if (!task) return null;
+
+        let latestDeadline = task.deadline;
+        
+        // 子タスクの最遅期限を取得
+        const childTasks = this.getChildTasks(taskId);
+        childTasks.forEach(child => {
+            const childDeadline = this.calculateLatestDeadline(child.id);
+            if (childDeadline && (!latestDeadline || new Date(childDeadline) > new Date(latestDeadline))) {
+                latestDeadline = childDeadline;
+            }
+        });
+
+        return latestDeadline;
     }
 
     // 総所要時間計算（子タスク含む）
