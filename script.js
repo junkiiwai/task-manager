@@ -220,7 +220,7 @@ class TaskManager {
         });
     }
 
-    // プロジェクト要素作成（横1行表示）
+    // プロジェクト要素作成（階層表示付き）
     createProjectElement(project) {
         const projectElement = document.createElement('div');
         projectElement.className = `project-card ${project.progress >= 100 ? 'completed' : ''}`;
@@ -231,6 +231,9 @@ class TaskManager {
         const totalHours = this.calculateTotalHours(project.id);
         const totalProgress = this.calculateTotalProgress(project.id);
         const autoPriority = this.calculateAutoPriority(totalHours, remainingDays);
+
+        // 子タスクを取得
+        const childTasks = this.getChildTasks(project.id);
 
         projectElement.innerHTML = `
             <div class="project-row">
@@ -247,10 +250,16 @@ class TaskManager {
                 </div>
                 <div class="project-priority priority-${autoPriority}">P${autoPriority}</div>
             </div>
+            <div class="child-tasks" id="child-tasks-${project.id}">
+                ${this.renderChildTasks(childTasks, 1)}
+            </div>
         `;
 
-        projectElement.addEventListener('click', () => {
-            this.showTaskDetail(project.id);
+        projectElement.addEventListener('click', (e) => {
+            // プロジェクト行のみクリック可能
+            if (e.target.closest('.project-row')) {
+                this.showTaskDetail(project.id);
+            }
         });
 
         return projectElement;
@@ -274,34 +283,34 @@ class TaskManager {
         return childTasks;
     }
 
-    // 子タスクを階層表示
+    // 子タスクを階層表示（横1行表示）
     renderChildTasks(childTasks, level = 1) {
         if (childTasks.length === 0) return '';
 
         let html = '';
         childTasks.forEach(child => {
-            const childRemainingDays = this.calculateRemainingDays(child.deadline);
+            const childLatestDeadline = this.calculateLatestDeadline(child.id);
+            const childRemainingDays = this.calculateRemainingDays(childLatestDeadline);
             const childTotalHours = this.calculateTotalHours(child.id);
             const childTotalProgress = this.calculateTotalProgress(child.id);
+            const childAutoPriority = this.calculateAutoPriority(childTotalHours, childRemainingDays);
             const grandChildTasks = this.getChildTasks(child.id);
 
             html += `
                 <div class="child-task level-${level}" data-task-id="${child.id}">
-                    <div class="child-task-header">
+                    <div class="child-task-row">
                         <div class="child-task-name">${child.name}</div>
-                        <div class="child-task-priority priority-${child.priority}">P${child.priority}</div>
-                    </div>
-                    <div class="child-task-info">
-                        <span><i class="fas fa-user"></i> ${child.assignee || '未設定'}</span>
-                        <span><i class="fas fa-clock"></i> ${childTotalHours}h</span>
-                        <span><i class="fas fa-calendar"></i> ${this.formatDeadline(child.deadline)}</span>
-                        <span><i class="fas fa-calendar-day"></i> 残${childRemainingDays}日</span>
-                    </div>
-                    <div class="child-task-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
+                        <div class="child-task-assignee">${child.assignee || '未設定'}</div>
+                        <div class="child-task-hours">${childTotalHours}h</div>
+                        <div class="child-task-deadline">${this.formatDeadline(childLatestDeadline)}</div>
+                        <div class="child-task-remaining">${childRemainingDays}日</div>
+                        <div class="child-task-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
+                            </div>
+                            <div class="progress-text">${childTotalProgress}%</div>
                         </div>
-                        <div class="progress-text">${childTotalProgress}%</div>
+                        <div class="child-task-priority priority-${childAutoPriority}">P${childAutoPriority}</div>
                     </div>
                     ${this.renderChildTasks(grandChildTasks, level + 1)}
                 </div>
