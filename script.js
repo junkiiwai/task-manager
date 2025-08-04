@@ -157,6 +157,10 @@ class TaskManager {
             updatedAt: new Date().toISOString()
         };
 
+        console.log('作成されたタスク:', task);
+        console.log('親タスクID:', task.parentTaskId);
+        console.log('子タスクID:', task.childTaskId);
+
         this.tasks.push(task);
         this.saveTasks();
         this.renderTasks();
@@ -175,7 +179,13 @@ class TaskManager {
         // プロジェクト（最上位タスク）を取得
         const projects = this.tasks.filter(task => !task.parentTaskId);
         
+        console.log('全タスク:', this.tasks);
+        console.log('プロジェクト（最上位タスク）:', projects);
+        
         projects.forEach(project => {
+            const childTasks = this.getChildTasks(project.id);
+            console.log(`プロジェクト "${project.name}" の子タスク:`, childTasks);
+            
             const projectElement = this.createProjectElement(project);
             
             if (project.progress >= 100) {
@@ -244,7 +254,9 @@ class TaskManager {
 
     // 子タスクを取得
     getChildTasks(parentId) {
-        return this.tasks.filter(task => task.parentTaskId === parentId);
+        const childTasks = this.tasks.filter(task => task.parentTaskId === parentId);
+        console.log(`親タスクID ${parentId} の子タスク:`, childTasks);
+        return childTasks;
     }
 
     // 子タスクを階層表示
