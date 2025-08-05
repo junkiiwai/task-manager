@@ -333,20 +333,22 @@ class TaskManager {
         const childTasks = this.getChildTasks(project.id);
 
         projectElement.innerHTML = `
-            <div class="project-row">
-                <div class="project-name">${project.name}</div>
-                <div class="project-assignee">${project.assignee || '未設定'}</div>
-                <div class="project-hours">${totalHours}h</div>
-                <div class="project-deadline">${this.formatDeadline(latestDeadline)}</div>
-                <div class="project-remaining">${remainingDays}日</div>
-                <div class="project-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${totalProgress}%"></div>
-                    </div>
-                    <div class="progress-text">${totalProgress}%</div>
-                </div>
-                <div class="project-priority priority-${autoPriority}">P${autoPriority}</div>
-            </div>
+            <table class="task-table">
+                <tr class="project-row">
+                    <td class="project-name">${project.name}</td>
+                    <td class="project-assignee">${project.assignee || '未設定'}</td>
+                    <td class="project-hours">${totalHours}h</td>
+                    <td class="project-deadline">${this.formatDeadline(latestDeadline)}</td>
+                    <td class="project-remaining">${remainingDays}日</td>
+                    <td class="project-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${totalProgress}%"></div>
+                        </div>
+                        <div class="progress-text">${totalProgress}%</div>
+                    </td>
+                    <td class="project-priority priority-${autoPriority}">P${autoPriority}</td>
+                </tr>
+            </table>
             <div class="child-tasks" id="child-tasks-${project.id}">
                 ${this.renderChildTasks(childTasks, 1)}
             </div>
@@ -402,20 +404,22 @@ class TaskManager {
 
             html += `
                 <div class="child-task level-${level}" data-task-id="${child.id}">
-                    <div class="child-task-row">
-                        <div class="child-task-name">${child.name}</div>
-                        <div class="child-task-assignee">${child.assignee || '未設定'}</div>
-                        <div class="child-task-hours">${childTotalHours}h</div>
-                        <div class="child-task-deadline">${this.formatDeadline(childLatestDeadline)}</div>
-                        <div class="child-task-remaining">${childRemainingDays}日</div>
-                        <div class="child-task-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
-                            </div>
-                            <div class="progress-text">${childTotalProgress}%</div>
-                        </div>
-                        <div class="child-task-priority priority-${childAutoPriority}">P${childAutoPriority}</div>
-                    </div>
+                    <table class="task-table">
+                        <tr class="child-task-row">
+                            <td class="child-task-name">${child.name}</td>
+                            <td class="child-task-assignee">${child.assignee || '未設定'}</td>
+                            <td class="child-task-hours">${childTotalHours}h</td>
+                            <td class="child-task-deadline">${this.formatDeadline(childLatestDeadline)}</td>
+                            <td class="child-task-remaining">${childRemainingDays}日</td>
+                            <td class="child-task-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
+                                </div>
+                                <div class="progress-text">${childTotalProgress}%</div>
+                            </td>
+                            <td class="child-task-priority priority-${childAutoPriority}">P${childAutoPriority}</td>
+                        </tr>
+                    </table>
                     ${this.renderChildTasks(grandChildTasks, level + 1)}
                 </div>
             `;
