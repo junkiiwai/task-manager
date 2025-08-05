@@ -333,23 +333,23 @@ class TaskManager {
         const childTasks = this.getChildTasks(project.id);
 
         projectElement.innerHTML = `
-            <table class="task-table">
-                <tr class="project-row">
-                    <td class="project-name">${project.name}</td>
-                    <td class="project-assignee">${project.assignee || '未設定'}</td>
-                    <td class="project-hours">${totalHours}h</td>
-                    <td class="project-deadline">${this.formatDeadline(latestDeadline)}</td>
-                    <td class="project-remaining">${remainingDays}日</td>
-                    <td class="project-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${totalProgress}%"></div>
-                        </div>
-                        <div class="progress-text">${totalProgress}%</div>
-                    </td>
-                    <td class="project-priority priority-${autoPriority}">P${autoPriority}</td>
-                </tr>
+            <div class="task-row project-row" data-task-id="${project.id}">
+                <div class="task-name">${project.name}</div>
+                <div class="task-assignee">${project.assignee || '未設定'}</div>
+                <div class="task-hours">${totalHours}h</div>
+                <div class="task-deadline">${this.formatDeadline(latestDeadline)}</div>
+                <div class="task-remaining">${remainingDays}日</div>
+                <div class="task-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${totalProgress}%"></div>
+                    </div>
+                    <div class="progress-text">${totalProgress}%</div>
+                </div>
+                <div class="task-priority priority-${autoPriority}">P${autoPriority}</div>
+            </div>
+            <div class="child-tasks">
                 ${this.renderChildTasks(childTasks, 1)}
-            </table>
+            </div>
         `;
 
         projectElement.addEventListener('click', (e) => {
@@ -401,20 +401,20 @@ class TaskManager {
             const grandChildTasks = this.getChildTasks(child.id);
 
             html += `
-                <tr class="child-task-row level-${level}" data-task-id="${child.id}">
-                    <td class="child-task-name">${child.name}</td>
-                    <td class="child-task-assignee">${child.assignee || '未設定'}</td>
-                    <td class="child-task-hours">${childTotalHours}h</td>
-                    <td class="child-task-deadline">${this.formatDeadline(childLatestDeadline)}</td>
-                    <td class="child-task-remaining">${childRemainingDays}日</td>
-                    <td class="child-task-progress">
+                <div class="task-row child-task-row level-${level}" data-task-id="${child.id}">
+                    <div class="task-name">${child.name}</div>
+                    <div class="task-assignee">${child.assignee || '未設定'}</div>
+                    <div class="task-hours">${childTotalHours}h</div>
+                    <div class="task-deadline">${this.formatDeadline(childLatestDeadline)}</div>
+                    <div class="task-remaining">${childRemainingDays}日</div>
+                    <div class="task-progress">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
                         </div>
                         <div class="progress-text">${childTotalProgress}%</div>
-                    </td>
-                    <td class="child-task-priority priority-${childAutoPriority}">P${childAutoPriority}</td>
-                </tr>
+                    </div>
+                    <div class="task-priority priority-${childAutoPriority}">P${childAutoPriority}</div>
+                </div>
                 ${this.renderChildTasks(grandChildTasks, level + 1)}
             `;
         });
