@@ -169,6 +169,8 @@ body {
     overflow-x: auto !important;
     min-width: 800px !important;
     width: 800px !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .project-card:hover {

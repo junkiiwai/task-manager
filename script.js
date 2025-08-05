@@ -347,9 +347,7 @@ class TaskManager {
                 </div>
                 <div class="task-priority priority-${autoPriority}">P${autoPriority}</div>
             </div>
-            <div class="child-tasks">
-                ${this.renderChildTasks(childTasks, 1)}
-            </div>
+            ${this.renderChildTasks(childTasks, 1)}
         `;
 
         projectElement.addEventListener('click', (e) => {
