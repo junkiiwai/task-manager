@@ -166,7 +166,6 @@ body {
     transition: all 0.3s ease !important;
     position: relative !important;
     cursor: pointer !important;
-    overflow-x: auto !important;
     min-width: 800px !important;
     width: 800px !important;
     display: flex !important;
@@ -198,8 +197,7 @@ body {
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     font-size: 12px !important;
-    min-width: 800px !important;
-    width: 800px !important;
+    width: 776px !important;
     box-sizing: border-box !important;
 }
 
