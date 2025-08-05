@@ -220,15 +220,15 @@ body {
 }
 
 .child-task-row.level-1 {
-    padding-left: 20px !important;
+    margin-left: 20px !important;
 }
 
 .child-task-row.level-2 {
-    padding-left: 40px !important;
+    margin-left: 40px !important;
 }
 
 .child-task-row.level-3 {
-    padding-left: 60px !important;
+    margin-left: 60px !important;
 }
 
 .task-name {
@@ -242,7 +242,21 @@ body {
     flex-shrink: 0 !important;
 }
 
-/* 階層に応じたタスク名の横幅調整は不要 - padding-leftで対応 */
+/* 階層に応じたタスク名の横幅調整 */
+.child-task-row.level-1 .task-name {
+    width: 180px !important;
+    min-width: 180px !important;
+}
+
+.child-task-row.level-2 .task-name {
+    width: 160px !important;
+    min-width: 160px !important;
+}
+
+.child-task-row.level-3 .task-name {
+    width: 140px !important;
+    min-width: 140px !important;
+}
 
 .task-assignee {
     color: #6c757d !important;
