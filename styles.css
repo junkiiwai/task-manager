@@ -224,7 +224,6 @@ body {
     text-overflow: ellipsis !important;
     width: 200px !important;
     padding: 8px 12px !important;
-    border-radius: 8px 0 0 8px !important;
 }
 
 .project-assignee, .child-task-assignee {
@@ -292,7 +291,6 @@ body {
 
 .project-priority, .child-task-priority {
     padding: 4px 6px !important;
-    border-radius: 0 8px 8px 0 !important;
     font-size: 10px !important;
     font-weight: 600 !important;
     text-align: center !important;
@@ -353,48 +351,6 @@ body {
 }
 
 /* 子タスクの個別スタイルは削除 - テーブルセルで統一 */
-
-.child-task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-}
-
-.child-task-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #2c3e50;
-    flex: 1;
-    margin-right: 10px;
-}
-
-.child-task-priority {
-    padding: 3px 6px;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.child-task-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 8px;
-    font-size: 12px;
-    color: #6c757d;
-}
-
-.child-task-info span {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.child-task-progress {
-    margin-top: 8px;
-}
 
 /* タスクカード（既存のスタイルを保持） */
 .task-card {

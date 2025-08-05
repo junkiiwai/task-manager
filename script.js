@@ -365,9 +365,9 @@ class TaskManager {
     // 子タスクのクリックイベントを設定
     setupChildTaskEvents() {
         document.addEventListener('click', (e) => {
-            const childTask = e.target.closest('.child-task');
-            if (childTask) {
-                const taskId = childTask.dataset.taskId;
+            const childTaskRow = e.target.closest('.child-task-row');
+            if (childTaskRow) {
+                const taskId = childTaskRow.dataset.taskId;
                 this.showTaskDetail(taskId);
             }
         });
