@@ -198,6 +198,7 @@ body {
     font-size: 12px !important;
     min-width: 800px !important;
     width: 800px !important;
+    box-sizing: border-box !important;
 }
 
 .project-row {
@@ -219,15 +220,15 @@ body {
 }
 
 .child-task-row.level-1 {
-    margin-left: 20px !important;
+    padding-left: 20px !important;
 }
 
 .child-task-row.level-2 {
-    margin-left: 40px !important;
+    padding-left: 40px !important;
 }
 
 .child-task-row.level-3 {
-    margin-left: 60px !important;
+    padding-left: 60px !important;
 }
 
 .task-name {
@@ -241,21 +242,7 @@ body {
     flex-shrink: 0 !important;
 }
 
-/* 階層に応じたタスク名の横幅調整 */
-.child-task-row.level-1 .task-name {
-    width: 180px !important;
-    min-width: 180px !important;
-}
-
-.child-task-row.level-2 .task-name {
-    width: 160px !important;
-    min-width: 160px !important;
-}
-
-.child-task-row.level-3 .task-name {
-    width: 140px !important;
-    min-width: 140px !important;
-}
+/* 階層に応じたタスク名の横幅調整は不要 - padding-leftで対応 */
 
 .task-assignee {
     color: #6c757d !important;
