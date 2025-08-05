@@ -120,24 +120,24 @@ body {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(1200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
 }
 
-@media (min-width: 1800px) {
+@media (min-width: 1400px) {
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (min-width: 1400px) and (max-width: 1799px) {
+@media (min-width: 1000px) and (max-width: 1399px) {
     .projects-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 1399px) {
+@media (max-width: 999px) {
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -186,8 +186,8 @@ body {
     position: relative !important;
     cursor: pointer !important;
     overflow-x: auto !important;
-    min-width: 1200px !important;
-    width: 1200px !important;
+    min-width: 900px !important;
+    width: 900px !important;
 }
 
 .project-card:hover {
@@ -208,12 +208,12 @@ body {
 
 .project-row {
     display: grid !important;
-    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px !important;
-    gap: 20px !important;
+    grid-template-columns: 250px 120px 80px 160px 80px 120px 80px !important;
+    gap: 10px !important;
     align-items: center !important;
-    font-size: 13px !important;
-    min-width: 1200px !important;
-    width: 1200px !important;
+    font-size: 12px !important;
+    min-width: 900px !important;
+    width: 900px !important;
 }
 
 .project-name {
@@ -222,8 +222,8 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    width: 300px !important;
-    min-width: 300px !important;
+    width: 250px !important;
+    min-width: 250px !important;
 }
 
 .project-assignee {
@@ -231,16 +231,16 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    width: 150px !important;
-    min-width: 150px !important;
+    width: 120px !important;
+    min-width: 120px !important;
 }
 
 .project-hours {
     color: #6c757d !important;
     text-align: center !important;
     white-space: nowrap !important;
-    width: 100px !important;
-    min-width: 100px !important;
+    width: 80px !important;
+    min-width: 80px !important;
 }
 
 .project-deadline {
@@ -248,16 +248,16 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    width: 200px !important;
-    min-width: 200px !important;
+    width: 160px !important;
+    min-width: 160px !important;
 }
 
 .project-remaining {
     color: #6c757d !important;
     text-align: center !important;
     white-space: nowrap !important;
-    width: 100px !important;
-    min-width: 100px !important;
+    width: 80px !important;
+    min-width: 80px !important;
 }
 
 .project-progress {
@@ -341,46 +341,56 @@ body {
 
 .child-task-row {
     display: grid !important;
-    grid-template-columns: 300px 150px 100px 200px 100px 150px 100px !important;
-    gap: 15px !important;
+    grid-template-columns: 250px 120px 80px 160px 80px 120px 80px !important;
+    gap: 10px !important;
     align-items: center !important;
     font-size: 12px !important;
-    min-width: 1200px !important;
-    width: 1200px !important;
+    min-width: 900px !important;
+    width: 900px !important;
 }
 
 .child-task-name {
-    font-weight: 500;
-    color: #2c3e50;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 500 !important;
+    color: #2c3e50 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 250px !important;
+    min-width: 250px !important;
 }
 
 .child-task-assignee {
-    color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: #6c757d !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 120px !important;
+    min-width: 120px !important;
 }
 
 .child-task-hours {
-    color: #6c757d;
-    text-align: center;
-    white-space: nowrap;
+    color: #6c757d !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    width: 80px !important;
+    min-width: 80px !important;
 }
 
 .child-task-deadline {
-    color: #6c757d;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: #6c757d !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 160px !important;
+    min-width: 160px !important;
 }
 
 .child-task-remaining {
-    color: #6c757d;
-    text-align: center;
-    white-space: nowrap;
+    color: #6c757d !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    width: 80px !important;
+    min-width: 80px !important;
 }
 
 .child-task-progress {
