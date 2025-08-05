@@ -166,8 +166,8 @@ body {
     transition: all 0.3s ease !important;
     position: relative !important;
     cursor: pointer !important;
-    min-width: 800px !important;
-    width: 800px !important;
+    min-width: 720px !important;
+    width: 720px !important;
     display: flex !important;
     flex-direction: column !important;
 }
@@ -197,7 +197,7 @@ body {
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     font-size: 12px !important;
-    width: 776px !important;
+    width: 720px !important;
     box-sizing: border-box !important;
 }
 
@@ -240,22 +240,23 @@ body {
     width: 200px !important;
     min-width: 200px !important;
     flex-shrink: 0 !important;
+    font-size: 9.6px !important;
 }
 
 /* 階層に応じたタスク名の横幅調整 */
 .child-task-row.level-1 .task-name {
-    width: 180px !important;
-    min-width: 180px !important;
+    width: 220px !important;
+    min-width: 220px !important;
 }
 
 .child-task-row.level-2 .task-name {
-    width: 160px !important;
-    min-width: 160px !important;
+    width: 240px !important;
+    min-width: 240px !important;
 }
 
 .child-task-row.level-3 .task-name {
-    width: 140px !important;
-    min-width: 140px !important;
+    width: 260px !important;
+    min-width: 260px !important;
 }
 
 .task-assignee {
@@ -263,8 +264,8 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    width: 100px !important;
-    min-width: 100px !important;
+    width: 80px !important;
+    min-width: 80px !important;
     flex-shrink: 0 !important;
 }
 
@@ -272,8 +273,8 @@ body {
     color: #6c757d !important;
     text-align: center !important;
     white-space: nowrap !important;
-    width: 60px !important;
-    min-width: 60px !important;
+    width: 40px !important;
+    min-width: 40px !important;
     flex-shrink: 0 !important;
 }
 
