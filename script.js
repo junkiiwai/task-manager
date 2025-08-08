@@ -170,15 +170,41 @@ class TaskManager {
 
         // 編集ボタン
         document.getElementById('editAssigneeBtn').addEventListener('click', () => {
-            this.editAssignee();
+            this.startEditAssignee();
         });
 
         document.getElementById('editHoursBtn').addEventListener('click', () => {
-            this.editHours();
+            this.startEditHours();
         });
 
         document.getElementById('editDeadlineBtn').addEventListener('click', () => {
-            this.editDeadline();
+            this.startEditDeadline();
+        });
+
+        // 保存ボタン
+        document.getElementById('saveAssigneeBtn').addEventListener('click', () => {
+            this.saveEditAssignee();
+        });
+
+        document.getElementById('saveHoursBtn').addEventListener('click', () => {
+            this.saveEditHours();
+        });
+
+        document.getElementById('saveDeadlineBtn').addEventListener('click', () => {
+            this.saveEditDeadline();
+        });
+
+        // キャンセルボタン
+        document.getElementById('cancelAssigneeBtn').addEventListener('click', () => {
+            this.cancelEditAssignee();
+        });
+
+        document.getElementById('cancelHoursBtn').addEventListener('click', () => {
+            this.cancelEditHours();
+        });
+
+        document.getElementById('cancelDeadlineBtn').addEventListener('click', () => {
+            this.cancelEditDeadline();
         });
 
         // モーダル外クリックで閉じる
@@ -345,10 +371,20 @@ class TaskManager {
         // 子タスクを取得
         const childTasks = this.getChildTasks(project.id);
 
+        // 子タスクの担当者を取得
+        const childAssignees = this.getChildAssignees(project.id);
+        const assigneeDisplay = childAssignees.length > 0 
+            ? childAssignees.length === 1 
+                ? childAssignees[0]
+                : childAssignees.length === 2
+                    ? `${childAssignees[0]}\n${childAssignees[1]}`
+                    : `${childAssignees[0]}\n${childAssignees[1]}...`
+            : project.assignee || '未設定';
+
         projectElement.innerHTML = `
             <div class="task-row project-row" data-task-id="${project.id}">
                 <div class="task-name">${project.name}</div>
-                <div class="task-assignee">${project.assignee || '未設定'}</div>
+                <div class="task-assignee">${assigneeDisplay}</div>
                 <div class="task-hours">${totalHours}h</div>
                 <div class="task-deadline">${this.formatDeadline(latestDeadline)}</div>
                 <div class="task-remaining">残${remainingDays}日</div>
@@ -389,6 +425,17 @@ class TaskManager {
         const childTasks = this.tasks.filter(task => task.parentTaskId === parentId);
         console.log(`親タスクID ${parentId} の子タスク:`, childTasks);
         return childTasks;
+    }
+
+    // 子タスクの担当者を取得（未設定を除く）
+    getChildAssignees(parentId) {
+        const childTasks = this.getChildTasks(parentId);
+        const assignees = childTasks
+            .map(task => task.assignee)
+            .filter(assignee => assignee && assignee !== '未設定');
+        
+        // 重複を除去
+        return [...new Set(assignees)];
     }
 
     // 子タスクを階層表示（横1行表示）
@@ -636,64 +683,192 @@ class TaskManager {
         this.populateAssigneeSelect();
     }
 
-    // 担当者編集
-    editAssignee() {
+
+
+    // 担当者編集開始
+    startEditAssignee() {
         const task = this.tasks.find(t => t.id === this.currentTaskId);
         if (!task) return;
 
-        const newAssignee = prompt('新しい担当者名を入力してください:', task.assignee);
-        if (newAssignee !== null) {
-            task.assignee = newAssignee;
+        // 子タスクを持つタスクは編集不可
+        const hasChildren = this.tasks.some(t => t.parentTaskId === this.currentTaskId);
+        if (hasChildren) {
+            alert('子タスクを持つタスクは編集できません。');
+            return;
+        }
+
+        const assigneeSpan = document.getElementById('detailAssignee');
+        const assigneeInput = document.getElementById('editAssigneeInput');
+        const editBtn = document.getElementById('editAssigneeBtn');
+        const saveBtn = document.getElementById('saveAssigneeBtn');
+        const cancelBtn = document.getElementById('cancelAssigneeBtn');
+
+        assigneeInput.value = task.assignee || '';
+        assigneeSpan.style.display = 'none';
+        assigneeInput.style.display = 'inline-block';
+        editBtn.style.display = 'none';
+        saveBtn.style.display = 'inline-block';
+        cancelBtn.style.display = 'inline-block';
+        assigneeInput.focus();
+    }
+
+    // 担当者編集保存
+    saveEditAssignee() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        const assigneeInput = document.getElementById('editAssigneeInput');
+        const newAssignee = assigneeInput.value.trim();
+
+        task.assignee = newAssignee;
+        task.updatedAt = new Date().toISOString();
+        this.saveTasks();
+        this.renderTasks();
+        this.showTaskDetail(this.currentTaskId);
+    }
+
+    // 担当者編集キャンセル
+    cancelEditAssignee() {
+        const assigneeSpan = document.getElementById('detailAssignee');
+        const assigneeInput = document.getElementById('editAssigneeInput');
+        const editBtn = document.getElementById('editAssigneeBtn');
+        const saveBtn = document.getElementById('saveAssigneeBtn');
+        const cancelBtn = document.getElementById('cancelAssigneeBtn');
+
+        assigneeSpan.style.display = 'inline';
+        assigneeInput.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
+    }
+
+    // 所要時間編集開始
+    startEditHours() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        // 子タスクを持つタスクは編集不可
+        const hasChildren = this.tasks.some(t => t.parentTaskId === this.currentTaskId);
+        if (hasChildren) {
+            alert('子タスクを持つタスクは編集できません。');
+            return;
+        }
+
+        const hoursSpan = document.getElementById('detailHours');
+        const hoursInput = document.getElementById('editHoursInput');
+        const editBtn = document.getElementById('editHoursBtn');
+        const saveBtn = document.getElementById('saveHoursBtn');
+        const cancelBtn = document.getElementById('cancelHoursBtn');
+
+        hoursInput.value = task.estimatedHours || 0;
+        hoursSpan.style.display = 'none';
+        hoursInput.style.display = 'inline-block';
+        editBtn.style.display = 'none';
+        saveBtn.style.display = 'inline-block';
+        cancelBtn.style.display = 'inline-block';
+        hoursInput.focus();
+    }
+
+    // 所要時間編集保存
+    saveEditHours() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        const hoursInput = document.getElementById('editHoursInput');
+        const hours = parseFloat(hoursInput.value);
+
+        if (!isNaN(hours) && hours >= 0) {
+            task.estimatedHours = hours;
             task.updatedAt = new Date().toISOString();
             this.saveTasks();
             this.renderTasks();
             this.showTaskDetail(this.currentTaskId);
+        } else {
+            alert('有効な数値を入力してください。');
         }
     }
 
-    // 所要時間編集
-    editHours() {
-        const task = this.tasks.find(t => t.id === this.currentTaskId);
-        if (!task) return;
+    // 所要時間編集キャンセル
+    cancelEditHours() {
+        const hoursSpan = document.getElementById('detailHours');
+        const hoursInput = document.getElementById('editHoursInput');
+        const editBtn = document.getElementById('editHoursBtn');
+        const saveBtn = document.getElementById('saveHoursBtn');
+        const cancelBtn = document.getElementById('cancelHoursBtn');
 
-        const newHours = prompt('新しい所要時間（時間）を入力してください:', task.estimatedHours);
-        if (newHours !== null) {
-            const hours = parseFloat(newHours);
-            if (!isNaN(hours) && hours >= 0) {
-                task.estimatedHours = hours;
-                task.updatedAt = new Date().toISOString();
-                this.saveTasks();
-                this.renderTasks();
-                this.showTaskDetail(this.currentTaskId);
-            } else {
-                alert('有効な数値を入力してください。');
-            }
-        }
+        hoursSpan.style.display = 'inline';
+        hoursInput.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
     }
 
-    // 期限編集
-    editDeadline() {
+    // 期限編集開始
+    startEditDeadline() {
         const task = this.tasks.find(t => t.id === this.currentTaskId);
         if (!task) return;
 
-        const newDeadline = prompt('新しい期限を入力してください（YYYY-MM-DDTHH:MM形式）:', task.deadline);
-        if (newDeadline !== null) {
-            if (newDeadline === '') {
-                task.deadline = null;
-            } else {
-                const date = new Date(newDeadline);
-                if (!isNaN(date.getTime())) {
-                    task.deadline = newDeadline;
-                } else {
-                    alert('有効な日時を入力してください。');
-                    return;
-                }
-            }
-            task.updatedAt = new Date().toISOString();
-            this.saveTasks();
-            this.renderTasks();
-            this.showTaskDetail(this.currentTaskId);
+        // 子タスクを持つタスクは編集不可
+        const hasChildren = this.tasks.some(t => t.parentTaskId === this.currentTaskId);
+        if (hasChildren) {
+            alert('子タスクを持つタスクは編集できません。');
+            return;
         }
+
+        const deadlineSpan = document.getElementById('detailDeadline');
+        const deadlineInput = document.getElementById('editDeadlineInput');
+        const editBtn = document.getElementById('editDeadlineBtn');
+        const saveBtn = document.getElementById('saveDeadlineBtn');
+        const cancelBtn = document.getElementById('cancelDeadlineBtn');
+
+        deadlineInput.value = task.deadline || '';
+        deadlineSpan.style.display = 'none';
+        deadlineInput.style.display = 'inline-block';
+        editBtn.style.display = 'none';
+        saveBtn.style.display = 'inline-block';
+        cancelBtn.style.display = 'inline-block';
+        deadlineInput.focus();
+    }
+
+    // 期限編集保存
+    saveEditDeadline() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        const deadlineInput = document.getElementById('editDeadlineInput');
+        const newDeadline = deadlineInput.value;
+
+        if (newDeadline === '') {
+            task.deadline = null;
+        } else {
+            const date = new Date(newDeadline);
+            if (!isNaN(date.getTime())) {
+                task.deadline = newDeadline;
+            } else {
+                alert('有効な日時を入力してください。');
+                return;
+            }
+        }
+
+        task.updatedAt = new Date().toISOString();
+        this.saveTasks();
+        this.renderTasks();
+        this.showTaskDetail(this.currentTaskId);
+    }
+
+    // 期限編集キャンセル
+    cancelEditDeadline() {
+        const deadlineSpan = document.getElementById('detailDeadline');
+        const deadlineInput = document.getElementById('editDeadlineInput');
+        const editBtn = document.getElementById('editDeadlineBtn');
+        const saveBtn = document.getElementById('saveDeadlineBtn');
+        const cancelBtn = document.getElementById('cancelDeadlineBtn');
+
+        deadlineSpan.style.display = 'inline';
+        deadlineInput.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
     }
 
     // 現在のユーザー読み込み

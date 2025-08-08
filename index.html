@@ -109,8 +109,13 @@
                 <div class="task-info">
                     <div class="info-row">
                         <span class="label">担当者:</span>
-                        <span id="detailAssignee">-</span>
-                        <button class="btn btn-small" id="editAssigneeBtn">編集</button>
+                        <div class="edit-field">
+                            <span id="detailAssignee">-</span>
+                            <input type="text" id="editAssigneeInput" style="display: none;">
+                            <button class="btn btn-small" id="editAssigneeBtn">編集</button>
+                            <button class="btn btn-small" id="saveAssigneeBtn" style="display: none;">保存</button>
+                            <button class="btn btn-small" id="cancelAssigneeBtn" style="display: none;">キャンセル</button>
+                        </div>
                     </div>
                     <div class="info-row">
                         <span class="label">優先度:</span>
@@ -118,13 +123,23 @@
                     </div>
                     <div class="info-row">
                         <span class="label">所要時間:</span>
-                        <span id="detailHours">-</span>
-                        <button class="btn btn-small" id="editHoursBtn">編集</button>
+                        <div class="edit-field">
+                            <span id="detailHours">-</span>
+                            <input type="number" id="editHoursInput" min="0" step="0.5" style="display: none;">
+                            <button class="btn btn-small" id="editHoursBtn">編集</button>
+                            <button class="btn btn-small" id="saveHoursBtn" style="display: none;">保存</button>
+                            <button class="btn btn-small" id="cancelHoursBtn" style="display: none;">キャンセル</button>
+                        </div>
                     </div>
                     <div class="info-row">
                         <span class="label">期限:</span>
-                        <span id="detailDeadline">-</span>
-                        <button class="btn btn-small" id="editDeadlineBtn">編集</button>
+                        <div class="edit-field">
+                            <span id="detailDeadline">-</span>
+                            <input type="datetime-local" id="editDeadlineInput" style="display: none;">
+                            <button class="btn btn-small" id="editDeadlineBtn">編集</button>
+                            <button class="btn btn-small" id="saveDeadlineBtn" style="display: none;">保存</button>
+                            <button class="btn btn-small" id="cancelDeadlineBtn" style="display: none;">キャンセル</button>
+                        </div>
                     </div>
                     <div class="info-row">
                         <span class="label">残日数:</span>
