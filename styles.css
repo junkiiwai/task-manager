@@ -197,8 +197,24 @@ body {
     cursor: pointer !important;
     transition: all 0.3s ease !important;
     font-size: 12px !important;
-    width: 720px !important;
     box-sizing: border-box !important;
+}
+
+/* 階層に応じたtask-rowの幅調整 */
+.task-row.project-row {
+    width: 690px !important;
+}
+
+.task-row.child-task-row.level-1 {
+    width: 670px !important;
+}
+
+.task-row.child-task-row.level-2 {
+    width: 650px !important;
+}
+
+.task-row.child-task-row.level-3 {
+    width: 630px !important;
 }
 
 .project-row {
@@ -272,8 +288,8 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    width: 80px !important;
-    min-width: 80px !important;
+    width: 60px !important;
+    min-width: 60px !important;
     flex-shrink: 0 !important;
 }
 

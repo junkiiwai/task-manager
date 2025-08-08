@@ -338,7 +338,7 @@ class TaskManager {
                 <div class="task-assignee">${project.assignee || '未設定'}</div>
                 <div class="task-hours">${totalHours}h</div>
                 <div class="task-deadline">${this.formatDeadline(latestDeadline)}</div>
-                <div class="task-remaining">${remainingDays}日</div>
+                <div class="task-remaining">残${remainingDays}日</div>
                 <div class="task-progress">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${totalProgress}%"></div>
@@ -404,7 +404,7 @@ class TaskManager {
                     <div class="task-assignee">${child.assignee || '未設定'}</div>
                     <div class="task-hours">${childTotalHours}h</div>
                     <div class="task-deadline">${this.formatDeadline(childLatestDeadline)}</div>
-                    <div class="task-remaining">${childRemainingDays}日</div>
+                    <div class="task-remaining">残${childRemainingDays}日</div>
                     <div class="task-progress">
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: ${childTotalProgress}%"></div>
