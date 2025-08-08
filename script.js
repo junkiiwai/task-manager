@@ -763,29 +763,33 @@ class TaskManager {
         const task = this.tasks.find(t => t.id === taskId);
         if (!task) return null;
 
-        let latestDeadline = task.deadline;
-        
-        // 子タスクの最遅期限を取得
+        // 子タスクがある場合
         const childTasks = this.getChildTasks(taskId);
-        childTasks.forEach(child => {
-            const childDeadline = this.calculateLatestDeadline(child.id);
-            if (childDeadline && childDeadline !== '-' && (!latestDeadline || new Date(childDeadline) > new Date(latestDeadline))) {
-                latestDeadline = childDeadline;
-            }
-        });
-
-        // 子タスクに期限がない場合、親タスクの期限も無効にする
         if (childTasks.length > 0) {
-            const hasValidDeadline = childTasks.some(child => {
+            // 子タスクの有効な期限があるかチェック
+            let hasValidChildDeadline = false;
+            let latestChildDeadline = null;
+
+            childTasks.forEach(child => {
                 const childDeadline = this.calculateLatestDeadline(child.id);
-                return childDeadline && childDeadline !== '-';
+                if (childDeadline && childDeadline !== '-') {
+                    hasValidChildDeadline = true;
+                    if (!latestChildDeadline || new Date(childDeadline) > new Date(latestChildDeadline)) {
+                        latestChildDeadline = childDeadline;
+                    }
+                }
             });
-            if (!hasValidDeadline) {
+
+            // 子タスクに有効な期限がない場合、親タスクの期限も無効にする
+            if (!hasValidChildDeadline) {
                 return null;
             }
+
+            return latestChildDeadline;
         }
 
-        return latestDeadline;
+        // 子タスクがない場合、自分の期限を返す
+        return task.deadline;
     }
 
     // 総所要時間計算（子タスク含む）
