@@ -243,24 +243,24 @@ body {
     font-size: 12px !important;
 }
 
-/* 親タスクのタスク名幅 */
-.project-row .task-name {
+/* 親タスクのタスク名幅 - より具体的なセレクター */
+.task-row.project-row .task-name {
     width: 200px !important;
     min-width: 200px !important;
 }
 
 /* 階層に応じたタスク名の横幅調整 - 右端をピッタリ揃えるため */
-.child-task-row.level-1 .task-name {
+.task-row.child-task-row.level-1 .task-name {
     width: 120px !important;
     min-width: 120px !important;
 }
 
-.child-task-row.level-2 .task-name {
+.task-row.child-task-row.level-2 .task-name {
     width: 80px !important;
     min-width: 80px !important;
 }
 
-.child-task-row.level-3 .task-name {
+.task-row.child-task-row.level-3 .task-name {
     width: 40px !important;
     min-width: 40px !important;
 }
