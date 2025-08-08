@@ -243,6 +243,12 @@ body {
     font-size: 12px !important;
 }
 
+/* 親タスクのタスク名幅 */
+.project-row .task-name {
+    width: 200px !important;
+    min-width: 200px !important;
+}
+
 /* 階層に応じたタスク名の横幅調整 - 右端をピッタリ揃えるため */
 .child-task-row.level-1 .task-name {
     width: 280px !important;
