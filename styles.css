@@ -237,8 +237,6 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
-    width: 200px !important;
-    min-width: 200px !important;
     flex-shrink: 0 !important;
     font-size: 12px !important;
 }
