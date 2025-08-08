@@ -168,6 +168,19 @@ class TaskManager {
             this.updateProgress(e.target.value);
         });
 
+        // 編集ボタン
+        document.getElementById('editAssigneeBtn').addEventListener('click', () => {
+            this.editAssignee();
+        });
+
+        document.getElementById('editHoursBtn').addEventListener('click', () => {
+            this.editHours();
+        });
+
+        document.getElementById('editDeadlineBtn').addEventListener('click', () => {
+            this.editDeadline();
+        });
+
         // モーダル外クリックで閉じる
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
@@ -345,7 +358,7 @@ class TaskManager {
                     </div>
                     <div class="progress-text">${totalProgress}%</div>
                 </div>
-                <div class="task-priority priority-${autoPriority}">P${autoPriority}</div>
+                <div class="task-priority priority-${autoPriority}">優先度${autoPriority}</div>
             </div>
             ${this.renderChildTasks(childTasks, 1)}
         `;
@@ -411,7 +424,7 @@ class TaskManager {
                         </div>
                         <div class="progress-text">${childTotalProgress}%</div>
                     </div>
-                    <div class="task-priority priority-${childAutoPriority}">P${childAutoPriority}</div>
+                    <div class="task-priority priority-${childAutoPriority}">優先度${childAutoPriority}</div>
                 </div>
                 ${this.renderChildTasks(grandChildTasks, level + 1)}
             `;
@@ -623,6 +636,66 @@ class TaskManager {
         this.populateAssigneeSelect();
     }
 
+    // 担当者編集
+    editAssignee() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        const newAssignee = prompt('新しい担当者名を入力してください:', task.assignee);
+        if (newAssignee !== null) {
+            task.assignee = newAssignee;
+            task.updatedAt = new Date().toISOString();
+            this.saveTasks();
+            this.renderTasks();
+            this.showTaskDetail(this.currentTaskId);
+        }
+    }
+
+    // 所要時間編集
+    editHours() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        const newHours = prompt('新しい所要時間（時間）を入力してください:', task.estimatedHours);
+        if (newHours !== null) {
+            const hours = parseFloat(newHours);
+            if (!isNaN(hours) && hours >= 0) {
+                task.estimatedHours = hours;
+                task.updatedAt = new Date().toISOString();
+                this.saveTasks();
+                this.renderTasks();
+                this.showTaskDetail(this.currentTaskId);
+            } else {
+                alert('有効な数値を入力してください。');
+            }
+        }
+    }
+
+    // 期限編集
+    editDeadline() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        const newDeadline = prompt('新しい期限を入力してください（YYYY-MM-DDTHH:MM形式）:', task.deadline);
+        if (newDeadline !== null) {
+            if (newDeadline === '') {
+                task.deadline = null;
+            } else {
+                const date = new Date(newDeadline);
+                if (!isNaN(date.getTime())) {
+                    task.deadline = newDeadline;
+                } else {
+                    alert('有効な日時を入力してください。');
+                    return;
+                }
+            }
+            task.updatedAt = new Date().toISOString();
+            this.saveTasks();
+            this.renderTasks();
+            this.showTaskDetail(this.currentTaskId);
+        }
+    }
+
     // 現在のユーザー読み込み
     loadCurrentUser() {
         // GitHub Pagesでは現在のユーザーを取得できないため、
@@ -674,7 +747,7 @@ class TaskManager {
 
     // 自動優先度計算
     calculateAutoPriority(hours, remainingDays) {
-        if (remainingDays === '-' || remainingDays === 0) return 5;
+        if (remainingDays === '-' || remainingDays === 0) return 1;
         
         const ratio = hours / remainingDays;
         
@@ -696,10 +769,21 @@ class TaskManager {
         const childTasks = this.getChildTasks(taskId);
         childTasks.forEach(child => {
             const childDeadline = this.calculateLatestDeadline(child.id);
-            if (childDeadline && (!latestDeadline || new Date(childDeadline) > new Date(latestDeadline))) {
+            if (childDeadline && childDeadline !== '-' && (!latestDeadline || new Date(childDeadline) > new Date(latestDeadline))) {
                 latestDeadline = childDeadline;
             }
         });
+
+        // 子タスクに期限がない場合、親タスクの期限も無効にする
+        if (childTasks.length > 0) {
+            const hasValidDeadline = childTasks.some(child => {
+                const childDeadline = this.calculateLatestDeadline(child.id);
+                return childDeadline && childDeadline !== '-';
+            });
+            if (!hasValidDeadline) {
+                return null;
+            }
+        }
 
         return latestDeadline;
     }
