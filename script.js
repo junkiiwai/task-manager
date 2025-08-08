@@ -766,22 +766,24 @@ class TaskManager {
         // 子タスクがある場合
         const childTasks = this.getChildTasks(taskId);
         if (childTasks.length > 0) {
-            // 子タスクの有効な期限があるかチェック
-            let hasValidChildDeadline = false;
+            // すべての子タスクに期限があるかチェック
+            let allChildrenHaveDeadline = true;
             let latestChildDeadline = null;
 
             childTasks.forEach(child => {
                 const childDeadline = this.calculateLatestDeadline(child.id);
                 if (childDeadline && childDeadline !== '-') {
-                    hasValidChildDeadline = true;
                     if (!latestChildDeadline || new Date(childDeadline) > new Date(latestChildDeadline)) {
                         latestChildDeadline = childDeadline;
                     }
+                } else {
+                    // 子タスクのいずれかに期限がない場合
+                    allChildrenHaveDeadline = false;
                 }
             });
 
-            // 子タスクに有効な期限がない場合、親タスクの期限も無効にする
-            if (!hasValidChildDeadline) {
+            // すべての子タスクに期限がない場合、親タスクの期限も無効にする
+            if (!allChildrenHaveDeadline) {
                 return null;
             }
 
