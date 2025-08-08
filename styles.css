@@ -251,18 +251,18 @@ body {
 
 /* 階層に応じたタスク名の横幅調整 - 右端をピッタリ揃えるため */
 .child-task-row.level-1 .task-name {
-    width: 280px !important;
-    min-width: 280px !important;
+    width: 120px !important;
+    min-width: 120px !important;
 }
 
 .child-task-row.level-2 .task-name {
-    width: 320px !important;
-    min-width: 320px !important;
+    width: 80px !important;
+    min-width: 80px !important;
 }
 
 .child-task-row.level-3 .task-name {
-    width: 360px !important;
-    min-width: 360px !important;
+    width: 40px !important;
+    min-width: 40px !important;
 }
 
 .task-assignee {
