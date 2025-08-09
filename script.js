@@ -219,7 +219,7 @@ class TaskManager {
 
         // 保存ボタン
         document.getElementById('saveAssigneeBtn').addEventListener('click', () => {
-            this.saveEditAssignee();
+            this.saveEditTaskAssignee();
         });
 
         document.getElementById('saveHoursBtn').addEventListener('click', () => {
@@ -232,7 +232,7 @@ class TaskManager {
 
         // キャンセルボタン
         document.getElementById('cancelAssigneeBtn').addEventListener('click', () => {
-            this.cancelEditAssignee();
+            this.cancelEditTaskAssignee();
         });
 
         document.getElementById('cancelHoursBtn').addEventListener('click', () => {
@@ -831,25 +831,10 @@ class TaskManager {
                 saveBtn.onclick = (e) => {
                     e.preventDefault();
                     console.log('=== 保存ボタン直接onclick実行 ===');
-                    console.log('this:', this);
-                    console.log('this.saveEditAssignee:', this.saveEditAssignee);
-                    console.log('typeof this.saveEditAssignee:', typeof this.saveEditAssignee);
-                    
                     try {
-                        console.log('saveEditAssignee呼び出し前');
-                        const result = this.saveEditAssignee();
-                        console.log('saveEditAssignee呼び出し後、結果:', result);
+                        this.saveEditAssignee();
                     } catch (error) {
                         console.error('saveEditAssignee実行エラー:', error);
-                        console.error('エラースタック:', error.stack);
-                        
-                        // 直接呼び出しも試す
-                        console.log('直接関数呼び出しを試行');
-                        try {
-                            window.taskManager.saveEditAssignee();
-                        } catch (directError) {
-                            console.error('直接呼び出しもエラー:', directError);
-                        }
                     }
                 };
                 console.log('保存ボタンのonclick設定完了');
@@ -978,8 +963,8 @@ class TaskManager {
         assigneeInput.focus();
     }
 
-    // 担当者編集保存
-    saveEditAssignee() {
+    // タスクの担当者編集保存
+    saveEditTaskAssignee() {
         const task = this.tasks.find(t => t.id === this.currentTaskId);
         if (!task) return;
 
@@ -993,8 +978,8 @@ class TaskManager {
         this.showTaskDetail(this.currentTaskId);
     }
 
-    // 担当者編集キャンセル
-    cancelEditAssignee() {
+    // タスクの担当者編集キャンセル
+    cancelEditTaskAssignee() {
         const assigneeSpan = document.getElementById('detailAssignee');
         const assigneeInput = document.getElementById('editAssigneeInput');
         const editBtn = document.getElementById('editAssigneeBtn');
