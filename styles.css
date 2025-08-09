@@ -217,6 +217,156 @@ body {
     width: 630px !important;
 }
 
+/* レスポンシブ対応 */
+@media (max-width: 840px) {
+    .projects-grid {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 20px !important;
+    }
+    
+    /* 小画面用の task-row 幅調整 */
+    .task-row.project-row {
+        width: calc(100vw - 60px) !important;
+        max-width: 600px !important;
+    }
+    
+    .task-row.child-task-row.level-1 {
+        width: calc(100vw - 80px) !important;
+        max-width: 580px !important;
+    }
+    
+    .task-row.child-task-row.level-2 {
+        width: calc(100vw - 100px) !important;
+        max-width: 560px !important;
+    }
+    
+    .task-row.child-task-row.level-3 {
+        width: calc(100vw - 120px) !important;
+        max-width: 540px !important;
+    }
+    
+    /* 小画面用のタスク名幅調整 */
+    .task-row.project-row .task-name {
+        width: calc(25vw) !important;
+        min-width: calc(25vw) !important;
+        max-width: calc(25vw) !important;
+    }
+    
+    .task-row.child-task-row.level-1 .task-name {
+        width: calc(22vw) !important;
+        min-width: calc(22vw) !important;
+        max-width: calc(22vw) !important;
+    }
+    
+    .task-row.child-task-row.level-2 .task-name {
+        width: calc(19vw) !important;
+        min-width: calc(19vw) !important;
+        max-width: calc(19vw) !important;
+    }
+    
+    .task-row.child-task-row.level-3 .task-name {
+        width: calc(16vw) !important;
+        min-width: calc(16vw) !important;
+        max-width: calc(16vw) !important;
+    }
+    
+    /* 小画面用のその他項目幅調整 */
+    .task-assignee {
+        width: calc(12vw) !important;
+        min-width: calc(12vw) !important;
+        font-size: 10px !important;
+    }
+    
+    .task-hours {
+        width: calc(8vw) !important;
+        min-width: calc(8vw) !important;
+        font-size: 10px !important;
+    }
+    
+    .task-deadline {
+        width: calc(20vw) !important;
+        min-width: calc(20vw) !important;
+        font-size: 10px !important;
+    }
+    
+    .task-remaining {
+        width: calc(10vw) !important;
+        min-width: calc(10vw) !important;
+        font-size: 10px !important;
+    }
+    
+    .task-progress {
+        width: calc(15vw) !important;
+        min-width: calc(15vw) !important;
+    }
+    
+    .task-priority {
+        width: calc(10vw) !important;
+        min-width: calc(10vw) !important;
+        font-size: 9px !important;
+    }
+    
+    /* 小画面用のフォントサイズ調整 */
+    .task-name {
+        font-size: 10px !important;
+    }
+    
+    .task-row {
+        font-size: 10px !important;
+        padding: 6px 8px !important;
+    }
+    
+    .progress-bar {
+        width: 30px !important;
+        height: 3px !important;
+    }
+    
+    .progress-text {
+        font-size: 8px !important;
+        min-width: 15px !important;
+    }
+}
+
+/* 840px-1000pxの画面横幅でプロジェクト横幅を維持 */
+@media (min-width: 841px) and (max-width: 1000px) {
+    .projects-grid {
+        display: block !important;
+        width: 100% !important;
+        max-width: 750px !important;
+        margin: 0 auto !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        max-width: 720px !important;
+        margin-bottom: 20px !important;
+    }
+}
+
+/* 1000px以上の画面横幅でプロジェクトを2列表示 */
+@media (min-width: 1001px) {
+    .projects-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+        width: 100% !important;
+        max-width: 1500px !important;
+        margin: 0 auto !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        max-width: 720px !important;
+        margin-bottom: 0 !important;
+    }
+}
+
 .project-row {
     background: white !important;
     border-left: 3px solid #667eea !important;
