@@ -417,11 +417,18 @@ class TaskManager {
                     : `${childAssignees[0]}\n${childAssignees[1]}...`
             : project.assignee || '未設定';
 
-        // 作業中の場合の背景色を設定
-        const workingStyle = project.isWorking ? this.getWorkingTaskStyle(project.assignee) : '';
+        // 背景色を設定（優先順位: 100%完了 > 作業中）
+        let taskStyle = '';
+        if (totalProgress === 100) {
+            // 100%完了の場合はグレー
+            taskStyle = 'background-color: #f8f9fa !important; color: #6c757d !important;';
+        } else if (project.isWorking) {
+            // 作業中の場合は担当者の色
+            taskStyle = this.getWorkingTaskStyle(project.assignee);
+        }
 
         projectElement.innerHTML = `
-            <div class="task-row project-row" data-task-id="${project.id}" style="${workingStyle}">
+            <div class="task-row project-row" data-task-id="${project.id}" style="${taskStyle}">
                 <div class="task-name">${project.name}</div>
                 <div class="task-assignee">${assigneeDisplay}</div>
                 <div class="task-hours">${totalHours}h</div>
@@ -497,11 +504,18 @@ class TaskManager {
             const childAutoPriority = this.calculateAutoPriority(childTotalHours, childRemainingDays);
             const grandChildTasks = this.getChildTasks(child.id);
 
-            // 作業中の場合の背景色を設定
-            const childWorkingStyle = child.isWorking ? this.getWorkingTaskStyle(child.assignee) : '';
+            // 背景色を設定（優先順位: 100%完了 > 作業中）
+            let childTaskStyle = '';
+            if (childTotalProgress === 100) {
+                // 100%完了の場合はグレー
+                childTaskStyle = 'background-color: #f8f9fa !important; color: #6c757d !important;';
+            } else if (child.isWorking) {
+                // 作業中の場合は担当者の色
+                childTaskStyle = this.getWorkingTaskStyle(child.assignee);
+            }
 
             html += `
-                <div class="task-row child-task-row level-${level}" data-task-id="${child.id}" style="${childWorkingStyle}">
+                <div class="task-row child-task-row level-${level}" data-task-id="${child.id}" style="${childTaskStyle}">
                     <div class="task-name">${child.name}</div>
                     <div class="task-assignee">${child.assignee || '未設定'}</div>
                     <div class="task-hours">${childTotalHours}h</div>
@@ -588,9 +602,18 @@ class TaskManager {
         const hasChildren = this.tasks.some(t => t.parentTaskId === taskId);
         progressInput.disabled = hasChildren;
 
-        // 作業中ステータス設定
+        // 作業中ステータス設定（子タスクを持つ場合は非表示）
         const workingStatus = document.getElementById('workingStatus');
-        workingStatus.checked = task.isWorking || false;
+        const workingStatusContainer = workingStatus.closest('.info-row');
+        
+        if (hasChildren) {
+            // 子タスクを持つ場合は非表示
+            workingStatusContainer.style.display = 'none';
+        } else {
+            // 子タスクを持たない場合は表示
+            workingStatusContainer.style.display = 'block';
+            workingStatus.checked = task.isWorking || false;
+        }
 
         // メモ履歴表示
         this.renderMemoHistory(taskId);
@@ -1162,7 +1185,15 @@ class TaskManager {
     // ユーザー選択UIを追加
     addUserSelector() {
         const header = document.querySelector('.header-controls');
-        if (header && this.assignees.length > 0) {
+        if (!header) return;
+        
+        // 既存のユーザーセレクターを削除
+        const existingSelector = header.querySelector('.user-selector');
+        if (existingSelector) {
+            existingSelector.remove();
+        }
+        
+        if (this.assignees.length > 0) {
             const userSelector = document.createElement('div');
             userSelector.className = 'user-selector';
             userSelector.innerHTML = `
