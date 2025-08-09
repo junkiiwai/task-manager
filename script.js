@@ -666,24 +666,49 @@ class TaskManager {
 
     // 作業中ステータス更新
     updateWorkingStatus(isWorking) {
+        console.log('updateWorkingStatus呼び出し:', isWorking);
         const task = this.tasks.find(t => t.id === this.currentTaskId);
-        if (!task) return;
+        if (!task) {
+            console.log('タスクが見つかりません:', this.currentTaskId);
+            return;
+        }
 
+        console.log('更新前のタスク:', task);
         task.isWorking = isWorking;
         task.updatedAt = new Date().toISOString();
+        console.log('更新後のタスク:', task);
 
         this.saveTasks();
         this.renderTasks();
+        console.log('タスク再レンダリング完了');
     }
 
     // 作業中タスクのスタイルを取得
     getWorkingTaskStyle(assigneeName) {
-        if (!assigneeName) return '';
+        console.log('getWorkingTaskStyle呼び出し:', assigneeName);
+        if (!assigneeName) {
+            console.log('担当者名が空です');
+            return '';
+        }
         
         const assignee = this.assignees.find(a => a.name === assigneeName);
-        if (!assignee || !assignee.color) return '';
+        console.log('見つかった担当者:', assignee);
         
-        return `background-color: ${assignee.color} !important; border-left-color: ${assignee.color} !important;`;
+        if (!assignee) {
+            console.log('担当者が見つかりません');
+            return '';
+        }
+        
+        // 色が設定されていない場合はデフォルト色を設定
+        if (!assignee.color) {
+            console.log('色が未設定のため、デフォルト色を設定します');
+            assignee.color = '#e3f2fd'; // デフォルトの淡い青
+            this.saveAssignees();
+        }
+        
+        const style = `background-color: ${assignee.color} !important; border-left-color: ${assignee.color} !important;`;
+        console.log('生成されたスタイル:', style);
+        return style;
     }
 
     // タスク削除
