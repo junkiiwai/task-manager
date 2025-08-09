@@ -802,22 +802,26 @@ class TaskManager {
 
     // 担当者編集フォーム表示
     showEditAssigneeForm(assignee) {
+        console.log('編集フォーム表示:', assignee);
+        
         // 編集フォーム入力値を設定
-        document.getElementById('editAssigneeName').value = assignee.name;
-        document.getElementById('editAssigneeGithub').value = assignee.github;
+        document.getElementById('editAssigneeName').value = assignee.name || '';
+        document.getElementById('editAssigneeGithub').value = assignee.github || '';
         
         // 色選択をリセットして現在の色を選択
         document.querySelectorAll('.edit-color-option').forEach(option => {
             option.classList.remove('selected');
         });
-        const currentColorOption = document.querySelector(`.edit-color-option[data-color="${assignee.color || '#e3f2fd'}"]`);
+        const currentColor = assignee.color || '#e3f2fd';
+        const currentColorOption = document.querySelector(`.edit-color-option[data-color="${currentColor}"]`);
         if (currentColorOption) {
             currentColorOption.classList.add('selected');
         }
-        document.getElementById('editSelectedColor').value = assignee.color || '#e3f2fd';
+        document.getElementById('editSelectedColor').value = currentColor;
         
         // 編集中の担当者IDを保存
         this.editingAssigneeId = assignee.id;
+        console.log('編集中の担当者ID:', this.editingAssigneeId);
         
         // 編集フォームを表示
         document.getElementById('editAssigneeForm').style.display = 'block';
@@ -826,12 +830,20 @@ class TaskManager {
 
     // 担当者編集保存
     saveEditAssignee() {
+        console.log('保存開始、編集中ID:', this.editingAssigneeId);
+        
         const assignee = this.assignees.find(a => a.id === this.editingAssigneeId);
-        if (!assignee) return;
+        if (!assignee) {
+            console.error('担当者が見つかりません:', this.editingAssigneeId);
+            alert('エラー: 担当者が見つかりません。');
+            return;
+        }
 
         const name = document.getElementById('editAssigneeName').value.trim();
         const github = document.getElementById('editAssigneeGithub').value.trim();
         const color = document.getElementById('editSelectedColor').value;
+
+        console.log('入力値:', { name, github, color });
 
         if (!name || !github) {
             alert('表示名とGitHubユーザー名は必須です。');
@@ -842,6 +854,8 @@ class TaskManager {
         assignee.github = github;
         assignee.color = color;
 
+        console.log('更新後の担当者:', assignee);
+
         this.saveAssignees();
         this.renderAssigneeList();
         this.populateAssigneeSelect();
@@ -849,6 +863,8 @@ class TaskManager {
         
         // 編集フォームを隠す
         this.hideEditAssigneeForm();
+        
+        console.log('保存完了');
     }
 
     // 担当者編集キャンセル

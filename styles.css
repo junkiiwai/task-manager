@@ -217,21 +217,73 @@ body {
     width: 630px !important;
 }
 
-/* レスポンシブ対応の基本設定 */
-.task-row {
-    font-size: clamp(10px, 2vw, 14px) !important;
+/* レスポンシブ対応: 480px以下 - 超小画面用に最小フォントサイズ調整 */
+@media (max-width: 480px) {
+    .projects-grid {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .project-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .header h1 {
+        font-size: 16px !important;
+    }
+    
+    .btn {
+        font-size: 10px !important;
+        padding: 6px 10px !important;
+    }
+    
+    .task-row {
+        font-size: 9px !important;
+        padding: 4px 6px !important;
+        width: calc(100vw - 50px) !important;
+        max-width: 100% !important;
+    }
+    
+    .task-name {
+        font-size: 10px !important;
+        width: calc(30vw) !important;
+        min-width: calc(30vw) !important;
+    }
+    
+    .task-assignee,
+    .task-hours,
+    .task-remaining {
+        font-size: 8px !important;
+        width: calc(12vw) !important;
+        min-width: calc(12vw) !important;
+    }
+    
+    .task-deadline,
+    .task-priority {
+        font-size: 7px !important;
+        width: calc(15vw) !important;
+        min-width: calc(15vw) !important;
+    }
+    
+    .task-progress {
+        width: calc(15vw) !important;
+        min-width: calc(15vw) !important;
+    }
+    
+    .progress-text {
+        font-size: 7px !important;
+    }
+    
+    .progress-bar {
+        width: 20px !important;
+        height: 2px !important;
+    }
 }
 
-.task-name {
-    font-size: clamp(10px, 2.5vw, 14px) !important;
-}
-
-.header h1 {
-    font-size: clamp(20px, 4vw, 28px) !important;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 840px) {
+/* レスポンシブ対応: 481px-840px - 中間サイズ画面用の段階的調整 */
+@media (min-width: 481px) and (max-width: 840px) {
     .projects-grid {
         display: block !important;
         width: 100% !important;
@@ -243,79 +295,41 @@ body {
         margin-bottom: 20px !important;
     }
     
-    /* 小画面用の task-row 幅調整 */
-    .task-row.project-row {
+    .header h1 {
+        font-size: 20px !important;
+    }
+    
+    .btn {
+        font-size: 12px !important;
+        padding: 8px 15px !important;
+    }
+    
+    .task-row {
+        font-size: 11px !important;
+        padding: 6px 8px !important;
         width: calc(100vw - 60px) !important;
-        max-width: 600px !important;
+        max-width: 700px !important;
     }
     
-    .task-row.child-task-row.level-1 {
-        width: calc(100vw - 80px) !important;
-        max-width: 580px !important;
-    }
-    
-    .task-row.child-task-row.level-2 {
-        width: calc(100vw - 100px) !important;
-        max-width: 560px !important;
-    }
-    
-    .task-row.child-task-row.level-3 {
-        width: calc(100vw - 120px) !important;
-        max-width: 540px !important;
-    }
-    
-    /* 小画面用のタスク名幅調整 */
-    .task-row.project-row .task-name {
+    .task-name {
+        font-size: 12px !important;
         width: calc(25vw) !important;
         min-width: calc(25vw) !important;
-        max-width: calc(25vw) !important;
-        font-size: clamp(9px, 2.5vw, 12px) !important;
     }
     
-    .task-row.child-task-row.level-1 .task-name {
-        width: calc(22vw) !important;
-        min-width: calc(22vw) !important;
-        max-width: calc(22vw) !important;
-        font-size: clamp(9px, 2.5vw, 12px) !important;
-    }
-    
-    .task-row.child-task-row.level-2 .task-name {
-        width: calc(19vw) !important;
-        min-width: calc(19vw) !important;
-        max-width: calc(19vw) !important;
-        font-size: clamp(9px, 2.5vw, 12px) !important;
-    }
-    
-    .task-row.child-task-row.level-3 .task-name {
-        width: calc(16vw) !important;
-        min-width: calc(16vw) !important;
-        max-width: calc(16vw) !important;
-        font-size: clamp(9px, 2.5vw, 12px) !important;
-    }
-    
-    /* 小画面用のその他項目幅調整 */
-    .task-assignee {
+    .task-assignee,
+    .task-hours,
+    .task-remaining {
+        font-size: 10px !important;
         width: calc(12vw) !important;
         min-width: calc(12vw) !important;
-        font-size: clamp(8px, 2vw, 11px) !important;
     }
     
-    .task-hours {
-        width: calc(8vw) !important;
-        min-width: calc(8vw) !important;
-        font-size: clamp(8px, 2vw, 11px) !important;
-    }
-    
-    .task-deadline {
-        width: calc(20vw) !important;
-        min-width: calc(20vw) !important;
-        font-size: clamp(7px, 1.8vw, 10px) !important;
-    }
-    
-    .task-remaining {
-        width: calc(10vw) !important;
-        min-width: calc(10vw) !important;
-        font-size: clamp(8px, 2vw, 11px) !important;
+    .task-deadline,
+    .task-priority {
+        font-size: 9px !important;
+        width: calc(15vw) !important;
+        min-width: calc(15vw) !important;
     }
     
     .task-progress {
@@ -323,96 +337,19 @@ body {
         min-width: calc(15vw) !important;
     }
     
-    .task-priority {
-        width: calc(10vw) !important;
-        min-width: calc(10vw) !important;
-        font-size: clamp(7px, 1.8vw, 10px) !important;
-    }
-    
-    /* 小画面用のフォントサイズ調整 */
-    .task-name {
-        font-size: clamp(9px, 2.5vw, 12px) !important;
-    }
-    
-    .task-row {
-        font-size: clamp(8px, 2vw, 11px) !important;
-        padding: clamp(4px, 1vw, 8px) clamp(6px, 1.5vw, 10px) !important;
+    .progress-text {
+        font-size: 9px !important;
     }
     
     .progress-bar {
-        width: clamp(25px, 6vw, 40px) !important;
-        height: clamp(2px, 0.5vw, 4px) !important;
-    }
-    
-    .progress-text {
-        font-size: clamp(7px, 1.8vw, 10px) !important;
-        min-width: clamp(12px, 3vw, 20px) !important;
-    }
-    
-    /* ヘッダーのフォントサイズも調整 */
-    .header h1 {
-        font-size: clamp(16px, 4vw, 24px) !important;
-    }
-    
-    .btn {
-        font-size: clamp(10px, 2.5vw, 14px) !important;
-        padding: clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 16px) !important;
+        width: 30px !important;
+        height: 4px !important;
     }
 }
 
-/* 480px以下のさらに小さな画面用 */
-@media (max-width: 480px) {
-    .task-row.project-row,
-    .task-row.child-task-row {
-        font-size: clamp(7px, 2vw, 10px) !important;
-        padding: clamp(3px, 1vw, 6px) clamp(4px, 1.5vw, 8px) !important;
-    }
-    
-    .task-name {
-        font-size: clamp(8px, 2.2vw, 11px) !important;
-    }
-    
-    .task-assignee,
-    .task-hours,
-    .task-remaining {
-        font-size: clamp(7px, 1.8vw, 9px) !important;
-    }
-    
-    .task-deadline,
-    .task-priority {
-        font-size: clamp(6px, 1.5vw, 8px) !important;
-    }
-    
-    .progress-text {
-        font-size: clamp(6px, 1.5vw, 8px) !important;
-    }
-    
-    .header h1 {
-        font-size: clamp(14px, 3.5vw, 20px) !important;
-    }
-    
-    .btn {
-        font-size: clamp(9px, 2.2vw, 12px) !important;
-        padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px) !important;
-    }
-}
 
-/* 600px-840pxの中間サイズ画面用 */
-@media (min-width: 481px) and (max-width: 840px) {
-    .task-row {
-        font-size: clamp(9px, 2.2vw, 12px) !important;
-    }
-    
-    .task-name {
-        font-size: clamp(10px, 2.5vw, 13px) !important;
-    }
-    
-    .header h1 {
-        font-size: clamp(18px, 4vw, 24px) !important;
-    }
-}
 
-/* 840px-1000pxの画面横幅でプロジェクト横幅を維持 */
+/* レスポンシブ対応: 841px-1000px - 中画面用の横幅維持 */
 @media (min-width: 841px) and (max-width: 1000px) {
     .projects-grid {
         display: block !important;
@@ -426,9 +363,49 @@ body {
         max-width: 720px !important;
         margin-bottom: 20px !important;
     }
+    
+    .header h1 {
+        font-size: 24px !important;
+    }
+    
+    .btn {
+        font-size: 14px !important;
+        padding: 10px 20px !important;
+    }
+    
+    .task-row {
+        font-size: 12px !important;
+        padding: 8px 10px !important;
+        width: 100% !important;
+        max-width: 720px !important;
+    }
+    
+    .task-name {
+        font-size: 13px !important;
+    }
+    
+    .task-assignee,
+    .task-hours,
+    .task-remaining {
+        font-size: 11px !important;
+    }
+    
+    .task-deadline,
+    .task-priority {
+        font-size: 10px !important;
+    }
+    
+    .progress-text {
+        font-size: 10px !important;
+    }
+    
+    .progress-bar {
+        width: 40px !important;
+        height: 6px !important;
+    }
 }
 
-/* 1000px以上の画面横幅でプロジェクトを2列表示 */
+/* レスポンシブ対応: 1000px以上 - 大画面用2列表示でのフォント・幅最適化 */
 @media (min-width: 1001px) {
     .projects-grid {
         display: grid !important;
@@ -445,42 +422,44 @@ body {
         margin-bottom: 0 !important;
     }
     
-    /* 大画面用のフォントサイズ調整 */
+    .header h1 {
+        font-size: 28px !important;
+    }
+    
+    .btn {
+        font-size: 14px !important;
+        padding: 12px 24px !important;
+    }
+    
+    .task-row {
+        font-size: 12px !important;
+        padding: 8px 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
     .task-name {
-        font-size: clamp(12px, 1.1vw, 15px) !important;
+        font-size: 14px !important;
     }
     
     .task-assignee,
     .task-hours,
     .task-remaining {
-        font-size: clamp(11px, 0.95vw, 14px) !important;
+        font-size: 12px !important;
     }
     
     .task-deadline,
     .task-priority {
-        font-size: clamp(10px, 0.85vw, 13px) !important;
+        font-size: 11px !important;
     }
     
     .progress-text {
-        font-size: clamp(10px, 0.85vw, 13px) !important;
+        font-size: 11px !important;
     }
     
-    .header h1 {
-        font-size: clamp(24px, 2.2vw, 36px) !important;
-    }
-    
-    .btn {
-        font-size: clamp(14px, 1.1vw, 18px) !important;
-    }
-    
-    /* プロジェクト幅の調整 */
-    .project-card {
-        max-width: clamp(680px, 48vw, 740px) !important;
-    }
-    
-    .task-row {
-        width: 100% !important;
-        max-width: 100% !important;
+    .progress-bar {
+        width: 50px !important;
+        height: 8px !important;
     }
 }
 
@@ -1260,4 +1239,5 @@ form {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
+} 
 } 
