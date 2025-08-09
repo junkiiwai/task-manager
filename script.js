@@ -384,7 +384,9 @@ class TaskManager {
             
             const projectElement = this.createProjectElement(project);
             
-            if (project.progress >= 100) {
+            // 総進捗度を計算して完了判定
+            const totalProgress = this.calculateTotalProgress(project.id);
+            if (totalProgress >= 100) {
                 completedContainer.appendChild(projectElement);
             } else {
                 projectsContainer.appendChild(projectElement);
@@ -700,8 +702,25 @@ class TaskManager {
         const hasChildren = this.tasks.some(t => t.parentTaskId === this.currentTaskId);
         if (hasChildren) return;
 
+        const oldProgress = task.progress;
         task.progress = parseInt(progress);
         task.updatedAt = new Date().toISOString();
+
+        // 進捗度変更時の「現在作業中」チェックボックス制御
+        const workingStatus = document.getElementById('workingStatus');
+        const workingStatusContainer = workingStatus.closest('.info-row');
+        
+        if (parseInt(progress) === 100) {
+            // 100%完了時：作業中フラグをクリアしてチェックボックスを非表示
+            if (task.isWorking) {
+                task.isWorking = false;
+            }
+            workingStatusContainer.style.display = 'none';
+        } else if (oldProgress === 100 && parseInt(progress) < 100) {
+            // 100%から未完了に戻した時：チェックボックスを表示
+            workingStatusContainer.style.display = 'block';
+            workingStatus.checked = task.isWorking || false;
+        }
 
         this.saveTasks();
         this.renderTasks();
