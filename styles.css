@@ -217,6 +217,19 @@ body {
     width: 630px !important;
 }
 
+/* レスポンシブ対応の基本設定 */
+.task-row {
+    font-size: clamp(10px, 2vw, 14px) !important;
+}
+
+.task-name {
+    font-size: clamp(10px, 2.5vw, 14px) !important;
+}
+
+.header h1 {
+    font-size: clamp(20px, 4vw, 28px) !important;
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 840px) {
     .projects-grid {

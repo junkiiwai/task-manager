@@ -1249,7 +1249,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // アプリケーション初期化
     console.log('スクリプト読み込み開始');
     try {
-        const taskManager = new TaskManager();
+        window.taskManager = new TaskManager();
         console.log('TaskManagerインスタンス作成完了');
     } catch (error) {
         console.error('TaskManager初期化エラー:', error);
