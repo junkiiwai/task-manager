@@ -836,24 +836,35 @@ class TaskManager {
             const cancelBtn = document.getElementById('cancelEditAssigneeBtn');
             
             if (saveBtn) {
-                saveBtn.onclick = () => {
-                    console.log('保存ボタン直接クリック');
+                // 既存のイベントリスナーをクリア
+                saveBtn.replaceWith(saveBtn.cloneNode(true));
+                const newSaveBtn = document.getElementById('saveEditAssigneeBtn');
+                newSaveBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('保存ボタンクリック - TaskManager:', this);
                     this.saveEditAssignee();
-                };
+                });
             }
             
             if (cancelBtn) {
-                cancelBtn.onclick = () => {
-                    console.log('キャンセルボタン直接クリック');
+                // 既存のイベントリスナーをクリア
+                cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+                const newCancelBtn = document.getElementById('cancelEditAssigneeBtn');
+                newCancelBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('キャンセルボタンクリック');
                     this.cancelEditAssignee();
-                };
+                });
             }
         }, 100);
     }
 
     // 担当者編集保存
     saveEditAssignee() {
+        console.log('=== saveEditAssignee関数開始 ===');
         console.log('保存開始、編集中ID:', this.editingAssigneeId);
+        console.log('this:', this);
+        console.log('assignees:', this.assignees);
         
         const assignee = this.assignees.find(a => a.id === this.editingAssigneeId);
         if (!assignee) {
