@@ -831,10 +831,25 @@ class TaskManager {
                 saveBtn.onclick = (e) => {
                     e.preventDefault();
                     console.log('=== 保存ボタン直接onclick実行 ===');
+                    console.log('this:', this);
+                    console.log('this.saveEditAssignee:', this.saveEditAssignee);
+                    console.log('typeof this.saveEditAssignee:', typeof this.saveEditAssignee);
+                    
                     try {
-                        this.saveEditAssignee();
+                        console.log('saveEditAssignee呼び出し前');
+                        const result = this.saveEditAssignee();
+                        console.log('saveEditAssignee呼び出し後、結果:', result);
                     } catch (error) {
                         console.error('saveEditAssignee実行エラー:', error);
+                        console.error('エラースタック:', error.stack);
+                        
+                        // 直接呼び出しも試す
+                        console.log('直接関数呼び出しを試行');
+                        try {
+                            window.taskManager.saveEditAssignee();
+                        } catch (directError) {
+                            console.error('直接呼び出しもエラー:', directError);
+                        }
                     }
                 };
                 console.log('保存ボタンのonclick設定完了');
@@ -857,10 +872,16 @@ class TaskManager {
 
     // 担当者編集保存
     saveEditAssignee() {
-        console.log('=== saveEditAssignee関数開始 ===');
+        console.log('%c=== saveEditAssignee関数開始 ===', 'color: green; font-size: 16px; font-weight: bold;');
         console.log('保存開始、編集中ID:', this.editingAssigneeId);
         console.log('this:', this);
         console.log('assignees:', this.assignees);
+        
+        // 関数の最初でreturnして、ここまで到達するかテスト
+        console.log('saveEditAssignee関数内の最初の処理に到達');
+        
+        // デバッグ：ここで一度returnして関数が呼ばれているかだけを確認
+        // return 'debug_test_reached';
         
         const assignee = this.assignees.find(a => a.id === this.editingAssigneeId);
         if (!assignee) {
