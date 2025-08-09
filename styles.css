@@ -253,9 +253,10 @@ body {
     }
     
     .task-name {
-        font-size: 7px !important;
-        width: 24% !important;
+        font-size: calc(3px + 1vw) !important;
+        width: calc(15vw + 5px) !important;
         min-width: 0 !important;
+        max-width: calc(25vw - 5px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -263,9 +264,10 @@ body {
     }
     
     .task-assignee {
-        font-size: 6px !important;
-        width: 14% !important;
+        font-size: calc(2px + 0.8vw) !important;
+        width: calc(10vw + 3px) !important;
         min-width: 0 !important;
+        max-width: calc(15vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -273,17 +275,19 @@ body {
     }
     
     .task-hours {
-        font-size: 6px !important;
-        width: 10% !important;
+        font-size: calc(2px + 0.7vw) !important;
+        width: calc(6vw + 2px) !important;
         min-width: 0 !important;
+        max-width: calc(12vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-deadline {
-        font-size: 5px !important;
-        width: 16% !important;
+        font-size: calc(2px + 0.6vw) !important;
+        width: calc(12vw + 3px) !important;
         min-width: 0 !important;
+        max-width: calc(18vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -291,16 +295,18 @@ body {
     }
     
     .task-remaining {
-        font-size: 5px !important;
-        width: 10% !important;
+        font-size: calc(2px + 0.6vw) !important;
+        width: calc(6vw + 2px) !important;
         min-width: 0 !important;
+        max-width: calc(12vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-progress {
-        width: 16% !important;
+        width: calc(10vw + 3px) !important;
         min-width: 0 !important;
+        max-width: calc(18vw - 3px) !important;
         flex-shrink: 1 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -308,9 +314,10 @@ body {
     }
     
     .task-priority {
-        font-size: 5px !important;
-        width: 10% !important;
+        font-size: calc(2px + 0.5vw) !important;
+        width: calc(5vw + 2px) !important;
         min-width: 0 !important;
+        max-width: calc(10vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
         overflow: hidden !important;
@@ -319,12 +326,12 @@ body {
     }
     
     .progress-text {
-        font-size: 6px !important;
+        font-size: calc(2px + 0.5vw) !important;
     }
     
     .progress-bar {
-        width: 20px !important;
-        height: 2px !important;
+        width: calc(8vw + 5px) !important;
+        height: calc(1px + 0.2vw) !important;
     }
 }
 
@@ -364,9 +371,10 @@ body {
     }
     
     .task-name {
-        font-size: 9px !important;
-        width: 25% !important;
+        font-size: calc(4px + 1.2vw) !important;
+        width: calc(18vw + 8px) !important;
         min-width: 0 !important;
+        max-width: calc(28vw - 5px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -374,9 +382,10 @@ body {
     }
     
     .task-assignee {
-        font-size: 8px !important;
-        width: 15% !important;
+        font-size: calc(3px + 1vw) !important;
+        width: calc(12vw + 5px) !important;
         min-width: 0 !important;
+        max-width: calc(18vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -384,17 +393,19 @@ body {
     }
     
     .task-hours {
-        font-size: 8px !important;
-        width: 10% !important;
+        font-size: calc(3px + 0.9vw) !important;
+        width: calc(8vw + 3px) !important;
         min-width: 0 !important;
+        max-width: calc(15vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-deadline {
-        font-size: 7px !important;
-        width: 20% !important;
+        font-size: calc(3px + 0.8vw) !important;
+        width: calc(15vw + 5px) !important;
         min-width: 0 !important;
+        max-width: calc(22vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -402,16 +413,18 @@ body {
     }
     
     .task-remaining {
-        font-size: 7px !important;
-        width: 10% !important;
+        font-size: calc(3px + 0.8vw) !important;
+        width: calc(8vw + 3px) !important;
         min-width: 0 !important;
+        max-width: calc(15vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-progress {
-        width: 15% !important;
+        width: calc(12vw + 4px) !important;
         min-width: 0 !important;
+        max-width: calc(20vw - 3px) !important;
         flex-shrink: 1 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -419,9 +432,10 @@ body {
     }
     
     .task-priority {
-        font-size: 7px !important;
-        width: 5% !important;
+        font-size: calc(3px + 0.7vw) !important;
+        width: calc(6vw + 2px) !important;
         min-width: 0 !important;
+        max-width: calc(12vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
         overflow: hidden !important;
@@ -430,12 +444,12 @@ body {
     }
     
     .progress-text {
-        font-size: 8px !important;
+        font-size: calc(3px + 0.7vw) !important;
     }
     
     .progress-bar {
-        width: 30px !important;
-        height: 4px !important;
+        width: calc(10vw + 8px) !important;
+        height: calc(2px + 0.3vw) !important;
     }
 }
 

@@ -824,28 +824,35 @@ class TaskManager {
             const saveBtn = document.getElementById('saveEditAssigneeBtn');
             const cancelBtn = document.getElementById('cancelEditAssigneeBtn');
             
+            console.log('ボタン検索結果:', { saveBtn, cancelBtn });
+            
             if (saveBtn) {
-                // 既存のイベントリスナーをクリア
-                saveBtn.replaceWith(saveBtn.cloneNode(true));
-                const newSaveBtn = document.getElementById('saveEditAssigneeBtn');
-                newSaveBtn.addEventListener('click', (e) => {
+                // 直接onclickで設定（最も確実）
+                saveBtn.onclick = (e) => {
                     e.preventDefault();
-                    console.log('保存ボタンクリック - TaskManager:', this);
-                    this.saveEditAssignee();
-                });
+                    console.log('=== 保存ボタン直接onclick実行 ===');
+                    try {
+                        this.saveEditAssignee();
+                    } catch (error) {
+                        console.error('saveEditAssignee実行エラー:', error);
+                    }
+                };
+                console.log('保存ボタンのonclick設定完了');
+            } else {
+                console.error('保存ボタンが見つかりません');
             }
             
             if (cancelBtn) {
-                // 既存のイベントリスナーをクリア
-                cancelBtn.replaceWith(cancelBtn.cloneNode(true));
-                const newCancelBtn = document.getElementById('cancelEditAssigneeBtn');
-                newCancelBtn.addEventListener('click', (e) => {
+                cancelBtn.onclick = (e) => {
                     e.preventDefault();
-                    console.log('キャンセルボタンクリック');
+                    console.log('=== キャンセルボタン直接onclick実行 ===');
                     this.cancelEditAssignee();
-                });
+                };
+                console.log('キャンセルボタンのonclick設定完了');
+            } else {
+                console.error('キャンセルボタンが見つかりません');
             }
-        }, 100);
+        }, 200);
     }
 
     // 担当者編集保存
@@ -883,6 +890,9 @@ class TaskManager {
         this.renderAssigneeList();
         this.populateAssigneeSelect();
         this.addUserSelector(); // ユーザー選択UIを更新
+        
+        // タスクを再レンダリングして背景色を更新
+        this.renderTasks();
         
         // 編集フォームを隠す
         this.hideEditAssigneeForm();
