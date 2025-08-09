@@ -253,65 +253,65 @@ body {
     }
     
     .task-name {
-        font-size: 9px !important;
-        width: 22% !important;
-        min-width: 60px !important;
-        flex-shrink: 0 !important;
+        font-size: 7px !important;
+        width: 24% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .task-assignee {
-        font-size: 8px !important;
-        width: 15% !important;
-        min-width: 40px !important;
-        flex-shrink: 0 !important;
+        font-size: 6px !important;
+        width: 14% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .task-hours {
-        font-size: 8px !important;
-        width: 12% !important;
-        min-width: 30px !important;
-        flex-shrink: 0 !important;
+        font-size: 6px !important;
+        width: 10% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-deadline {
-        font-size: 7px !important;
-        width: 18% !important;
-        min-width: 50px !important;
-        flex-shrink: 0 !important;
+        font-size: 5px !important;
+        width: 16% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .task-remaining {
-        font-size: 7px !important;
-        width: 12% !important;
-        min-width: 35px !important;
-        flex-shrink: 0 !important;
+        font-size: 5px !important;
+        width: 10% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-progress {
-        width: 13% !important;
-        min-width: 40px !important;
-        flex-shrink: 0 !important;
+        width: 16% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
     }
     
     .task-priority {
-        font-size: 7px !important;
-        width: 8% !important;
-        min-width: 25px !important;
-        flex-shrink: 0 !important;
+        font-size: 5px !important;
+        width: 10% !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         text-align: center !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -364,65 +364,65 @@ body {
     }
     
     .task-name {
-        font-size: 11px !important;
+        font-size: 9px !important;
         width: 25% !important;
-        min-width: 80px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .task-assignee {
-        font-size: 10px !important;
+        font-size: 8px !important;
         width: 15% !important;
-        min-width: 50px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .task-hours {
-        font-size: 10px !important;
+        font-size: 8px !important;
         width: 10% !important;
-        min-width: 35px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-deadline {
-        font-size: 9px !important;
+        font-size: 7px !important;
         width: 20% !important;
-        min-width: 70px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .task-remaining {
-        font-size: 9px !important;
+        font-size: 7px !important;
         width: 10% !important;
-        min-width: 40px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-progress {
         width: 15% !important;
-        min-width: 50px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
     }
     
     .task-priority {
-        font-size: 9px !important;
+        font-size: 7px !important;
         width: 5% !important;
-        min-width: 30px !important;
-        flex-shrink: 0 !important;
+        min-width: 0 !important;
+        flex-shrink: 1 !important;
         text-align: center !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;

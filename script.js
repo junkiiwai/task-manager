@@ -202,18 +202,7 @@ class TaskManager {
             this.deleteTask();
         });
 
-        // 担当者編集保存・キャンセルボタン（動的に作成されるため、後で追加）
-        document.addEventListener('click', (e) => {
-            console.log('クリックイベント:', e.target.id);
-            if (e.target.id === 'saveEditAssigneeBtn') {
-                console.log('保存ボタンクリック検出');
-                this.saveEditAssignee();
-            }
-            if (e.target.id === 'cancelEditAssigneeBtn') {
-                console.log('キャンセルボタンクリック検出');
-                this.cancelEditAssignee();
-            }
-        });
+        // 担当者編集保存・キャンセルボタンは showEditAssigneeForm で直接設定
 
         // 編集ボタン
         document.getElementById('editAssigneeBtn').addEventListener('click', () => {
