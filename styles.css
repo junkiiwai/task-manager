@@ -228,6 +228,7 @@ body {
         width: 100% !important;
         max-width: 100% !important;
         margin-bottom: 15px !important;
+        overflow-x: hidden !important;
     }
     
     .header h1 {
@@ -241,39 +242,84 @@ body {
     
     .task-row {
         font-size: 9px !important;
-        padding: 4px 6px !important;
-        width: calc(100vw - 50px) !important;
+        padding: 4px 2px !important;
+        width: 100% !important;
         max-width: 100% !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 2px !important;
+        box-sizing: border-box !important;
     }
     
     .task-name {
-        font-size: 10px !important;
-        width: calc(30vw) !important;
-        min-width: calc(30vw) !important;
+        font-size: 9px !important;
+        width: 22% !important;
+        min-width: 60px !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
-    .task-assignee,
-    .task-hours,
-    .task-remaining {
+    .task-assignee {
         font-size: 8px !important;
-        width: calc(12vw) !important;
-        min-width: calc(12vw) !important;
+        width: 15% !important;
+        min-width: 40px !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
-    .task-deadline,
-    .task-priority {
+    .task-hours {
+        font-size: 8px !important;
+        width: 12% !important;
+        min-width: 30px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+    }
+    
+    .task-deadline {
         font-size: 7px !important;
-        width: calc(15vw) !important;
-        min-width: calc(15vw) !important;
+        width: 18% !important;
+        min-width: 50px !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-remaining {
+        font-size: 7px !important;
+        width: 12% !important;
+        min-width: 35px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
     }
     
     .task-progress {
-        width: calc(15vw) !important;
-        min-width: calc(15vw) !important;
+        width: 13% !important;
+        min-width: 40px !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .task-priority {
+        font-size: 7px !important;
+        width: 8% !important;
+        min-width: 25px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .progress-text {
-        font-size: 7px !important;
+        font-size: 6px !important;
     }
     
     .progress-bar {
@@ -293,6 +339,7 @@ body {
         width: 100% !important;
         max-width: 100% !important;
         margin-bottom: 20px !important;
+        overflow-x: hidden !important;
     }
     
     .header h1 {
@@ -306,39 +353,84 @@ body {
     
     .task-row {
         font-size: 11px !important;
-        padding: 6px 8px !important;
-        width: calc(100vw - 60px) !important;
-        max-width: 700px !important;
+        padding: 6px 4px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 4px !important;
+        box-sizing: border-box !important;
     }
     
     .task-name {
-        font-size: 12px !important;
-        width: calc(25vw) !important;
-        min-width: calc(25vw) !important;
+        font-size: 11px !important;
+        width: 25% !important;
+        min-width: 80px !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
-    .task-assignee,
-    .task-hours,
-    .task-remaining {
+    .task-assignee {
         font-size: 10px !important;
-        width: calc(12vw) !important;
-        min-width: calc(12vw) !important;
+        width: 15% !important;
+        min-width: 50px !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
-    .task-deadline,
-    .task-priority {
+    .task-hours {
+        font-size: 10px !important;
+        width: 10% !important;
+        min-width: 35px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+    }
+    
+    .task-deadline {
         font-size: 9px !important;
-        width: calc(15vw) !important;
-        min-width: calc(15vw) !important;
+        width: 20% !important;
+        min-width: 70px !important;
+        flex-shrink: 0 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-remaining {
+        font-size: 9px !important;
+        width: 10% !important;
+        min-width: 40px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
     }
     
     .task-progress {
-        width: calc(15vw) !important;
-        min-width: calc(15vw) !important;
+        width: 15% !important;
+        min-width: 50px !important;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .task-priority {
+        font-size: 9px !important;
+        width: 5% !important;
+        min-width: 30px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .progress-text {
-        font-size: 9px !important;
+        font-size: 8px !important;
     }
     
     .progress-bar {

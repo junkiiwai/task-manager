@@ -204,10 +204,13 @@ class TaskManager {
 
         // 担当者編集保存・キャンセルボタン（動的に作成されるため、後で追加）
         document.addEventListener('click', (e) => {
+            console.log('クリックイベント:', e.target.id);
             if (e.target.id === 'saveEditAssigneeBtn') {
+                console.log('保存ボタンクリック検出');
                 this.saveEditAssignee();
             }
             if (e.target.id === 'cancelEditAssigneeBtn') {
+                console.log('キャンセルボタンクリック検出');
                 this.cancelEditAssignee();
             }
         });
@@ -826,6 +829,26 @@ class TaskManager {
         // 編集フォームを表示
         document.getElementById('editAssigneeForm').style.display = 'block';
         document.getElementById('addAssigneeForm').style.display = 'none';
+        
+        // 保存・キャンセルボタンのイベントリスナーを確実に設定
+        setTimeout(() => {
+            const saveBtn = document.getElementById('saveEditAssigneeBtn');
+            const cancelBtn = document.getElementById('cancelEditAssigneeBtn');
+            
+            if (saveBtn) {
+                saveBtn.onclick = () => {
+                    console.log('保存ボタン直接クリック');
+                    this.saveEditAssignee();
+                };
+            }
+            
+            if (cancelBtn) {
+                cancelBtn.onclick = () => {
+                    console.log('キャンセルボタン直接クリック');
+                    this.cancelEditAssignee();
+                };
+            }
+        }, 100);
     }
 
     // 担当者編集保存
@@ -1257,6 +1280,9 @@ class TaskManager {
     }
 }
 
+// グローバル変数として宣言
+let taskManager;
+
 // DOM読み込み完了後の初期化
 document.addEventListener('DOMContentLoaded', function() {
     console.log('=== DOM読み込み完了 ===');
@@ -1265,8 +1291,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // アプリケーション初期化
     console.log('スクリプト読み込み開始');
     try {
-        window.taskManager = new TaskManager();
+        taskManager = new TaskManager();
+        window.taskManager = taskManager; // グローバルに公開
         console.log('TaskManagerインスタンス作成完了');
+        console.log('window.taskManager設定:', window.taskManager);
     } catch (error) {
         console.error('TaskManager初期化エラー:', error);
     }
