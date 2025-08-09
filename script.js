@@ -420,8 +420,8 @@ class TaskManager {
         // 背景色を設定（優先順位: 100%完了 > 作業中）
         let taskStyle = '';
         if (totalProgress === 100) {
-            // 100%完了の場合はグレー
-            taskStyle = 'background-color: #f8f9fa !important; color: #6c757d !important;';
+            // 100%完了の場合は濃いグレー
+            taskStyle = 'background-color: #dee2e6 !important; color: #495057 !important; opacity: 0.8 !important;';
         } else if (project.isWorking) {
             // 作業中の場合は担当者の色
             taskStyle = this.getWorkingTaskStyle(project.assignee);
@@ -507,8 +507,8 @@ class TaskManager {
             // 背景色を設定（優先順位: 100%完了 > 作業中）
             let childTaskStyle = '';
             if (childTotalProgress === 100) {
-                // 100%完了の場合はグレー
-                childTaskStyle = 'background-color: #f8f9fa !important; color: #6c757d !important;';
+                // 100%完了の場合は濃いグレー
+                childTaskStyle = 'background-color: #dee2e6 !important; color: #495057 !important; opacity: 0.8 !important;';
             } else if (child.isWorking) {
                 // 作業中の場合は担当者の色
                 childTaskStyle = this.getWorkingTaskStyle(child.assignee);
@@ -615,6 +615,23 @@ class TaskManager {
             workingStatus.checked = task.isWorking || false;
         }
 
+        // 編集ボタンの表示制御（子タスクを持つ場合は非表示）
+        const editAssigneeBtn = document.getElementById('editAssigneeBtn');
+        const editHoursBtn = document.getElementById('editHoursBtn');
+        const editDeadlineBtn = document.getElementById('editDeadlineBtn');
+        
+        if (hasChildren) {
+            // 子タスクを持つ場合は編集ボタンを非表示
+            editAssigneeBtn.style.display = 'none';
+            editHoursBtn.style.display = 'none';
+            editDeadlineBtn.style.display = 'none';
+        } else {
+            // 子タスクを持たない場合は編集ボタンを表示
+            editAssigneeBtn.style.display = 'inline-block';
+            editHoursBtn.style.display = 'inline-block';
+            editDeadlineBtn.style.display = 'inline-block';
+        }
+
         // メモ履歴表示
         this.renderMemoHistory(taskId);
 
@@ -689,49 +706,35 @@ class TaskManager {
 
     // 作業中ステータス更新
     updateWorkingStatus(isWorking) {
-        console.log('updateWorkingStatus呼び出し:', isWorking);
         const task = this.tasks.find(t => t.id === this.currentTaskId);
-        if (!task) {
-            console.log('タスクが見つかりません:', this.currentTaskId);
-            return;
-        }
+        if (!task) return;
 
-        console.log('更新前のタスク:', task);
         task.isWorking = isWorking;
         task.updatedAt = new Date().toISOString();
-        console.log('更新後のタスク:', task);
 
         this.saveTasks();
         this.renderTasks();
-        console.log('タスク再レンダリング完了');
     }
 
     // 作業中タスクのスタイルを取得
     getWorkingTaskStyle(assigneeName) {
-        console.log('getWorkingTaskStyle呼び出し:', assigneeName);
-        if (!assigneeName) {
-            console.log('担当者名が空です');
+        if (!assigneeName || assigneeName === '未設定') {
             return '';
         }
         
         const assignee = this.assignees.find(a => a.name === assigneeName);
-        console.log('見つかった担当者:', assignee);
         
         if (!assignee) {
-            console.log('担当者が見つかりません');
             return '';
         }
         
         // 色が設定されていない場合はデフォルト色を設定
         if (!assignee.color) {
-            console.log('色が未設定のため、デフォルト色を設定します');
             assignee.color = '#e3f2fd'; // デフォルトの淡い青
             this.saveAssignees();
         }
         
-        const style = `background-color: ${assignee.color} !important; border-left-color: ${assignee.color} !important;`;
-        console.log('生成されたスタイル:', style);
-        return style;
+        return `background-color: ${assignee.color} !important; border-left-color: ${assignee.color} !important;`;
     }
 
     // タスク削除
