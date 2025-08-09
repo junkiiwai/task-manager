@@ -217,18 +217,25 @@ body {
     width: 630px !important;
 }
 
-/* レスポンシブ対応: 480px以下 - 超小画面用に最小フォントサイズ調整 */
+/* レスポンシブ対応: 480px以下 - 超小画面 */
 @media (max-width: 480px) {
     .projects-grid {
         display: block !important;
         width: 100% !important;
     }
     
+    /* 1. board padding 縮小 */
+    .board {
+        padding: 10px !important;
+    }
+    
+    /* 3. project-card padding 縮小 */
     .project-card {
         width: 100% !important;
         max-width: 100% !important;
         margin-bottom: 15px !important;
         overflow-x: hidden !important;
+        padding: 4px 6px !important;
     }
     
     .header h1 {
@@ -240,23 +247,24 @@ body {
         padding: 6px 10px !important;
     }
     
+    /* 2. task-row padding 縮小 */
     .task-row {
         font-size: 9px !important;
-        padding: 4px 2px !important;
+        padding: 2px 4px !important;
         width: 100% !important;
         max-width: 100% !important;
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 2px !important;
+        gap: 1px !important;
         box-sizing: border-box !important;
     }
     
+    /* 4. タスク要素のwidth 縮小 + 5. task-name font-size 縮小 */
     .task-name {
-        font-size: calc(3px + 1vw) !important;
-        width: calc(15vw + 5px) !important;
+        font-size: 8px !important;
+        width: 20% !important;
         min-width: 0 !important;
-        max-width: calc(25vw - 5px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -264,10 +272,9 @@ body {
     }
     
     .task-assignee {
-        font-size: calc(2px + 0.8vw) !important;
-        width: calc(10vw + 3px) !important;
+        font-size: 7px !important;
+        width: 12% !important;
         min-width: 0 !important;
-        max-width: calc(15vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -275,19 +282,17 @@ body {
     }
     
     .task-hours {
-        font-size: calc(2px + 0.7vw) !important;
-        width: calc(6vw + 2px) !important;
+        font-size: 7px !important;
+        width: 8% !important;
         min-width: 0 !important;
-        max-width: calc(12vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-deadline {
-        font-size: calc(2px + 0.6vw) !important;
-        width: calc(12vw + 3px) !important;
+        font-size: 6px !important;
+        width: 16% !important;
         min-width: 0 !important;
-        max-width: calc(18vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -295,18 +300,16 @@ body {
     }
     
     .task-remaining {
-        font-size: calc(2px + 0.6vw) !important;
-        width: calc(6vw + 2px) !important;
+        font-size: 6px !important;
+        width: 8% !important;
         min-width: 0 !important;
-        max-width: calc(12vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-progress {
-        width: calc(10vw + 3px) !important;
+        width: 16% !important;
         min-width: 0 !important;
-        max-width: calc(18vw - 3px) !important;
         flex-shrink: 1 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -314,10 +317,9 @@ body {
     }
     
     .task-priority {
-        font-size: calc(2px + 0.5vw) !important;
-        width: calc(5vw + 2px) !important;
+        font-size: 6px !important;
+        width: 8% !important;
         min-width: 0 !important;
-        max-width: calc(10vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
         overflow: hidden !important;
@@ -326,27 +328,34 @@ body {
     }
     
     .progress-text {
-        font-size: calc(2px + 0.5vw) !important;
+        font-size: 5px !important;
     }
     
     .progress-bar {
-        width: calc(8vw + 5px) !important;
-        height: calc(1px + 0.2vw) !important;
+        width: 15px !important;
+        height: 2px !important;
     }
 }
 
-/* レスポンシブ対応: 481px-840px - 中間サイズ画面用の段階的調整 */
+/* レスポンシブ対応: 481px-840px - 中間サイズ画面 */
 @media (min-width: 481px) and (max-width: 840px) {
     .projects-grid {
         display: block !important;
         width: 100% !important;
     }
     
+    /* 1. board padding 中程度に縮小 */
+    .board {
+        padding: 15px !important;
+    }
+    
+    /* 3. project-card padding 中程度に縮小 */
     .project-card {
         width: 100% !important;
         max-width: 100% !important;
         margin-bottom: 20px !important;
         overflow-x: hidden !important;
+        padding: 6px 8px !important;
     }
     
     .header h1 {
@@ -358,23 +367,24 @@ body {
         padding: 8px 15px !important;
     }
     
+    /* 2. task-row padding 中程度に縮小 */
     .task-row {
         font-size: 11px !important;
-        padding: 6px 4px !important;
+        padding: 4px 6px !important;
         width: 100% !important;
         max-width: 100% !important;
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 4px !important;
+        gap: 2px !important;
         box-sizing: border-box !important;
     }
     
+    /* 4. タスク要素のwidth 中程度に縮小 + 5. task-name font-size 中程度に縮小 */
     .task-name {
-        font-size: calc(4px + 1.2vw) !important;
-        width: calc(18vw + 8px) !important;
+        font-size: 10px !important;
+        width: 22% !important;
         min-width: 0 !important;
-        max-width: calc(28vw - 5px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -382,10 +392,9 @@ body {
     }
     
     .task-assignee {
-        font-size: calc(3px + 1vw) !important;
-        width: calc(12vw + 5px) !important;
+        font-size: 9px !important;
+        width: 14% !important;
         min-width: 0 !important;
-        max-width: calc(18vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -393,19 +402,17 @@ body {
     }
     
     .task-hours {
-        font-size: calc(3px + 0.9vw) !important;
-        width: calc(8vw + 3px) !important;
+        font-size: 9px !important;
+        width: 10% !important;
         min-width: 0 !important;
-        max-width: calc(15vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-deadline {
-        font-size: calc(3px + 0.8vw) !important;
-        width: calc(15vw + 5px) !important;
+        font-size: 8px !important;
+        width: 18% !important;
         min-width: 0 !important;
-        max-width: calc(22vw - 3px) !important;
         flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -413,18 +420,16 @@ body {
     }
     
     .task-remaining {
-        font-size: calc(3px + 0.8vw) !important;
-        width: calc(8vw + 3px) !important;
+        font-size: 8px !important;
+        width: 10% !important;
         min-width: 0 !important;
-        max-width: calc(15vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
     }
     
     .task-progress {
-        width: calc(12vw + 4px) !important;
+        width: 16% !important;
         min-width: 0 !important;
-        max-width: calc(20vw - 3px) !important;
         flex-shrink: 1 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -432,10 +437,9 @@ body {
     }
     
     .task-priority {
-        font-size: calc(3px + 0.7vw) !important;
-        width: calc(6vw + 2px) !important;
+        font-size: 8px !important;
+        width: 10% !important;
         min-width: 0 !important;
-        max-width: calc(12vw - 2px) !important;
         flex-shrink: 1 !important;
         text-align: center !important;
         overflow: hidden !important;
@@ -444,18 +448,18 @@ body {
     }
     
     .progress-text {
-        font-size: calc(3px + 0.7vw) !important;
+        font-size: 7px !important;
     }
     
     .progress-bar {
-        width: calc(10vw + 8px) !important;
-        height: calc(2px + 0.3vw) !important;
+        width: 20px !important;
+        height: 3px !important;
     }
 }
 
 
 
-/* レスポンシブ対応: 841px-1000px - 中画面用の横幅維持 */
+/* レスポンシブ対応: 841px-1000px - 中画面 */
 @media (min-width: 841px) and (max-width: 1000px) {
     .projects-grid {
         display: block !important;
@@ -464,10 +468,17 @@ body {
         margin: 0 auto !important;
     }
     
+    /* 1. board padding 少し縮小 */
+    .board {
+        padding: 20px !important;
+    }
+    
+    /* 3. project-card padding 少し縮小 */
     .project-card {
         width: 100% !important;
         max-width: 720px !important;
         margin-bottom: 20px !important;
+        padding: 8px 10px !important;
     }
     
     .header h1 {
@@ -511,7 +522,7 @@ body {
     }
 }
 
-/* レスポンシブ対応: 1000px以上 - 大画面用2列表示でのフォント・幅最適化 */
+/* レスポンシブ対応: 1000px以上 - 大画面 */
 @media (min-width: 1001px) {
     .projects-grid {
         display: grid !important;
@@ -522,10 +533,17 @@ body {
         margin: 0 auto !important;
     }
     
+    /* 1. board padding 標準サイズ */
+    .board {
+        padding: 25px !important;
+    }
+    
+    /* 3. project-card padding 標準サイズ */
     .project-card {
         width: 100% !important;
         max-width: 720px !important;
         margin-bottom: 0 !important;
+        padding: 8px 12px !important;
     }
     
     .header h1 {
