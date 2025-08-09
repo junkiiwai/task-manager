@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デバッグページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .debug-box {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        #status {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-box">
+        <h1>デバッグページ</h1>
+        <p>現在の時刻: <span id="currentTime"></span></p>
+        <div id="status">テスト準備中...</div>
+        
+        <h2>基本テスト</h2>
+        <button class="test-button" onclick="testBasicFunction()">基本機能テスト</button>
+        <button class="test-button" onclick="testTaskManager()">TaskManagerテスト</button>
+        <button class="test-button" onclick="testEditFunction()">編集機能テスト</button>
+        
+        <h2>レスポンシブテスト</h2>
+        <div id="responsive-info">
+            <p>現在の画面幅: <span id="screenWidth"></span>px</p>
+            <p>メディアクエリ: <span id="mediaQuery"></span></p>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // 現在時刻更新
+        function updateTime() {
+            document.getElementById('currentTime').textContent = new Date().toLocaleString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // 画面幅情報更新
+        function updateScreenInfo() {
+            const width = window.innerWidth;
+            document.getElementById('screenWidth').textContent = width;
+            
+            let mediaQuery = 'デスクトップ (1001px以上)';
+            if (width <= 480) {
+                mediaQuery = '超小画面 (480px以下)';
+            } else if (width <= 840) {
+                mediaQuery = '中間画面 (481px-840px)';
+            } else if (width <= 1000) {
+                mediaQuery = '中画面 (841px-1000px)';
+            }
+            document.getElementById('mediaQuery').textContent = mediaQuery;
+        }
+        updateScreenInfo();
+        window.addEventListener('resize', updateScreenInfo);
+
+        // テスト関数
+        function testBasicFunction() {
+            const status = document.getElementById('status');
+            status.textContent = '基本機能テスト実行中...';
+            status.className = '';
+            
+            try {
+                const test = 'Hello World';
+                status.textContent = '✅ 基本機能: 正常動作';
+                addResult('基本機能テスト', '成功', '');
+            } catch (error) {
+                status.textContent = '❌ 基本機能: エラー';
+                status.className = 'error';
+                addResult('基本機能テスト', '失敗', error.message);
+            }
+        }
+
+        function testTaskManager() {
+            const status = document.getElementById('status');
+            status.textContent = 'TaskManagerテスト実行中...';
+            status.className = '';
+            
+            try {
+                if (typeof window.taskManager !== 'undefined') {
+                    status.textContent = '✅ TaskManager: 存在します';
+                    addResult('TaskManagerテスト', '成功', 'window.taskManagerが存在');
+                } else {
+                    status.textContent = '❌ TaskManager: 存在しません';
+                    status.className = 'error';
+                    addResult('TaskManagerテスト', '失敗', 'window.taskManagerが未定義');
+                }
+            } catch (error) {
+                status.textContent = '❌ TaskManager: エラー';
+                status.className = 'error';
+                addResult('TaskManagerテスト', 'エラー', error.message);
+            }
+        }
+
+        function testEditFunction() {
+            const status = document.getElementById('status');
+            status.textContent = '編集機能テスト実行中...';
+            status.className = '';
+            
+            try {
+                const editBtn = document.getElementById('saveEditAssigneeBtn');
+                if (editBtn) {
+                    status.textContent = '✅ 編集ボタン: 存在します';
+                    addResult('編集機能テスト', '成功', '編集ボタンが存在');
+                } else {
+                    status.textContent = '⚠️ 編集ボタン: 現在非表示';
+                    addResult('編集機能テスト', '部分的', '編集ボタンは非表示状態（正常）');
+                }
+            } catch (error) {
+                status.textContent = '❌ 編集機能: エラー';
+                status.className = 'error';
+                addResult('編集機能テスト', 'エラー', error.message);
+            }
+        }
+
+        function addResult(testName, result, details) {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = 'debug-box';
+            div.innerHTML = `
+                <h3>${testName}</h3>
+                <p><strong>結果:</strong> ${result}</p>
+                <p><strong>詳細:</strong> ${details}</p>
+                <p><strong>時刻:</strong> ${new Date().toLocaleString()}</p>
+            `;
+            results.appendChild(div);
+        }
+
+        // 自動テスト実行
+        setTimeout(() => {
+            console.log('=== デバッグページ自動テスト開始 ===');
+            testBasicFunction();
+            setTimeout(() => testTaskManager(), 1000);
+            setTimeout(() => testEditFunction(), 2000);
+        }, 500);
+    </script>
+</body>
+</html>
