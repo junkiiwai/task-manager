@@ -199,7 +199,7 @@
                     <div class="assignee-list" id="assigneeList">
                         <!-- 担当者リストがここに表示されます -->
                     </div>
-                    <div class="add-assignee">
+                    <div class="add-assignee" id="addAssigneeForm">
                         <input type="text" id="newAssigneeName" placeholder="表示名">
                         <input type="text" id="newAssigneeGithub" placeholder="GitHubユーザー名">
                         <div class="color-selection">
@@ -214,6 +214,27 @@
                             <input type="hidden" id="selectedColor" value="#e3f2fd">
                         </div>
                         <button class="btn btn-primary" id="addAssigneeBtn">追加</button>
+                    </div>
+
+                    <div class="edit-assignee" id="editAssigneeForm" style="display: none;">
+                        <h5>担当者を編集</h5>
+                        <input type="text" id="editAssigneeName" placeholder="表示名">
+                        <input type="text" id="editAssigneeGithub" placeholder="GitHubユーザー名">
+                        <div class="color-selection">
+                            <label>色を選択:</label>
+                            <div class="color-options">
+                                <div class="edit-color-option" data-color="#fce4ec" style="background-color: #fce4ec;" title="淡いピンク"></div>
+                                <div class="edit-color-option" data-color="#e8f5e8" style="background-color: #e8f5e8;" title="淡い緑"></div>
+                                <div class="edit-color-option" data-color="#e3f2fd" style="background-color: #e3f2fd;" title="淡い青"></div>
+                                <div class="edit-color-option" data-color="#fff3e0" style="background-color: #fff3e0;" title="淡いオレンジ"></div>
+                                <div class="edit-color-option" data-color="#f3e5f5" style="background-color: #f3e5f5;" title="淡い紫"></div>
+                            </div>
+                            <input type="hidden" id="editSelectedColor" value="#e3f2fd">
+                        </div>
+                        <div class="edit-actions">
+                            <button class="btn btn-primary" id="saveEditAssigneeBtn">保存</button>
+                            <button class="btn btn-secondary" id="cancelEditAssigneeBtn">キャンセル</button>
+                        </div>
                     </div>
                 </div>
             </div>

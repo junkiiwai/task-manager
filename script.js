@@ -174,6 +174,17 @@ class TaskManager {
                 e.target.classList.add('selected');
                 document.getElementById('selectedColor').value = e.target.dataset.color;
             }
+            
+            // 編集用色選択イベント
+            if (e.target.classList.contains('edit-color-option')) {
+                // 選択状態をリセット
+                document.querySelectorAll('.edit-color-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                // 選択した色をアクティブにする
+                e.target.classList.add('selected');
+                document.getElementById('editSelectedColor').value = e.target.dataset.color;
+            }
         });
 
         // 進捗度変更
@@ -189,6 +200,16 @@ class TaskManager {
         // タスク削除ボタン
         document.getElementById('deleteTaskBtn').addEventListener('click', () => {
             this.deleteTask();
+        });
+
+        // 担当者編集保存・キャンセルボタン（動的に作成されるため、後で追加）
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'saveEditAssigneeBtn') {
+                this.saveEditAssignee();
+            }
+            if (e.target.id === 'cancelEditAssigneeBtn') {
+                this.cancelEditAssignee();
+            }
         });
 
         // 編集ボタン
@@ -775,24 +796,71 @@ class TaskManager {
         const assignee = this.assignees.find(a => a.id === assigneeId);
         if (!assignee) return;
 
-        const newName = prompt('新しい表示名を入力してください:', assignee.name);
-        if (newName === null) return;
+        // 編集フォームを表示
+        this.showEditAssigneeForm(assignee);
+    }
 
-        const newGithub = prompt('新しいGitHubユーザー名を入力してください:', assignee.github);
-        if (newGithub === null) return;
+    // 担当者編集フォーム表示
+    showEditAssigneeForm(assignee) {
+        // 編集フォーム入力値を設定
+        document.getElementById('editAssigneeName').value = assignee.name;
+        document.getElementById('editAssigneeGithub').value = assignee.github;
+        
+        // 色選択をリセットして現在の色を選択
+        document.querySelectorAll('.edit-color-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        const currentColorOption = document.querySelector(`.edit-color-option[data-color="${assignee.color || '#e3f2fd'}"]`);
+        if (currentColorOption) {
+            currentColorOption.classList.add('selected');
+        }
+        document.getElementById('editSelectedColor').value = assignee.color || '#e3f2fd';
+        
+        // 編集中の担当者IDを保存
+        this.editingAssigneeId = assignee.id;
+        
+        // 編集フォームを表示
+        document.getElementById('editAssigneeForm').style.display = 'block';
+        document.getElementById('addAssigneeForm').style.display = 'none';
+    }
 
-        if (!newName.trim() || !newGithub.trim()) {
+    // 担当者編集保存
+    saveEditAssignee() {
+        const assignee = this.assignees.find(a => a.id === this.editingAssigneeId);
+        if (!assignee) return;
+
+        const name = document.getElementById('editAssigneeName').value.trim();
+        const github = document.getElementById('editAssigneeGithub').value.trim();
+        const color = document.getElementById('editSelectedColor').value;
+
+        if (!name || !github) {
             alert('表示名とGitHubユーザー名は必須です。');
             return;
         }
 
-        assignee.name = newName.trim();
-        assignee.github = newGithub.trim();
+        assignee.name = name;
+        assignee.github = github;
+        assignee.color = color;
 
         this.saveAssignees();
         this.renderAssigneeList();
         this.populateAssigneeSelect();
         this.addUserSelector(); // ユーザー選択UIを更新
+        
+        // 編集フォームを隠す
+        this.hideEditAssigneeForm();
+    }
+
+    // 担当者編集キャンセル
+    cancelEditAssignee() {
+        this.hideEditAssigneeForm();
+    }
+
+    // 編集フォームを隠す
+    hideEditAssigneeForm() {
+        document.getElementById('editAssigneeForm').style.display = 'none';
+        document.getElementById('addAssigneeForm').style.display = 'block';
+        this.editingAssigneeId = null;
     }
 
     // 担当者削除

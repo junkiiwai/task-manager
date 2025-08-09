@@ -256,24 +256,28 @@ body {
         width: calc(25vw) !important;
         min-width: calc(25vw) !important;
         max-width: calc(25vw) !important;
+        font-size: clamp(9px, 2.5vw, 12px) !important;
     }
     
     .task-row.child-task-row.level-1 .task-name {
         width: calc(22vw) !important;
         min-width: calc(22vw) !important;
         max-width: calc(22vw) !important;
+        font-size: clamp(9px, 2.5vw, 12px) !important;
     }
     
     .task-row.child-task-row.level-2 .task-name {
         width: calc(19vw) !important;
         min-width: calc(19vw) !important;
         max-width: calc(19vw) !important;
+        font-size: clamp(9px, 2.5vw, 12px) !important;
     }
     
     .task-row.child-task-row.level-3 .task-name {
         width: calc(16vw) !important;
         min-width: calc(16vw) !important;
         max-width: calc(16vw) !important;
+        font-size: clamp(9px, 2.5vw, 12px) !important;
     }
     
     /* 小画面用のその他項目幅調整 */
@@ -343,6 +347,58 @@ body {
     }
 }
 
+/* 480px以下のさらに小さな画面用 */
+@media (max-width: 480px) {
+    .task-row.project-row,
+    .task-row.child-task-row {
+        font-size: clamp(7px, 2vw, 10px) !important;
+        padding: clamp(3px, 1vw, 6px) clamp(4px, 1.5vw, 8px) !important;
+    }
+    
+    .task-name {
+        font-size: clamp(8px, 2.2vw, 11px) !important;
+    }
+    
+    .task-assignee,
+    .task-hours,
+    .task-remaining {
+        font-size: clamp(7px, 1.8vw, 9px) !important;
+    }
+    
+    .task-deadline,
+    .task-priority {
+        font-size: clamp(6px, 1.5vw, 8px) !important;
+    }
+    
+    .progress-text {
+        font-size: clamp(6px, 1.5vw, 8px) !important;
+    }
+    
+    .header h1 {
+        font-size: clamp(14px, 3.5vw, 20px) !important;
+    }
+    
+    .btn {
+        font-size: clamp(9px, 2.2vw, 12px) !important;
+        padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px) !important;
+    }
+}
+
+/* 600px-840pxの中間サイズ画面用 */
+@media (min-width: 481px) and (max-width: 840px) {
+    .task-row {
+        font-size: clamp(9px, 2.2vw, 12px) !important;
+    }
+    
+    .task-name {
+        font-size: clamp(10px, 2.5vw, 13px) !important;
+    }
+    
+    .header h1 {
+        font-size: clamp(18px, 4vw, 24px) !important;
+    }
+}
+
 /* 840px-1000pxの画面横幅でプロジェクト横幅を維持 */
 @media (min-width: 841px) and (max-width: 1000px) {
     .projects-grid {
@@ -378,30 +434,40 @@ body {
     
     /* 大画面用のフォントサイズ調整 */
     .task-name {
-        font-size: clamp(12px, 1.2vw, 14px) !important;
+        font-size: clamp(12px, 1.1vw, 15px) !important;
     }
     
     .task-assignee,
     .task-hours,
     .task-remaining {
-        font-size: clamp(11px, 1vw, 13px) !important;
+        font-size: clamp(11px, 0.95vw, 14px) !important;
     }
     
     .task-deadline,
     .task-priority {
-        font-size: clamp(10px, 0.9vw, 12px) !important;
+        font-size: clamp(10px, 0.85vw, 13px) !important;
     }
     
     .progress-text {
-        font-size: clamp(10px, 0.9vw, 12px) !important;
+        font-size: clamp(10px, 0.85vw, 13px) !important;
     }
     
     .header h1 {
-        font-size: clamp(24px, 2.5vw, 32px) !important;
+        font-size: clamp(24px, 2.2vw, 36px) !important;
     }
     
     .btn {
-        font-size: clamp(14px, 1.2vw, 16px) !important;
+        font-size: clamp(14px, 1.1vw, 18px) !important;
+    }
+    
+    /* プロジェクト幅の調整 */
+    .project-card {
+        max-width: clamp(680px, 48vw, 740px) !important;
+    }
+    
+    .task-row {
+        width: 100% !important;
+        max-width: 100% !important;
     }
 }
 
@@ -602,6 +668,47 @@ body {
     padding-top: 20px;
     border-top: 1px solid #e0e0e0;
     text-align: center;
+}
+
+/* 編集フォーム */
+.edit-assignee {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.edit-assignee h5 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.edit-color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-color-option:hover {
+    transform: scale(1.1);
+    border-color: #667eea;
+}
+
+.edit-color-option.selected {
+    border-color: #667eea;
+    border-width: 3px;
+    transform: scale(1.1);
 }
 
 /* 階層表示 */
