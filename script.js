@@ -186,6 +186,11 @@ class TaskManager {
             this.updateWorkingStatus(e.target.checked);
         });
 
+        // タスク削除ボタン
+        document.getElementById('deleteTaskBtn').addEventListener('click', () => {
+            this.deleteTask();
+        });
+
         // 編集ボタン
         document.getElementById('editAssigneeBtn').addEventListener('click', () => {
             this.startEditAssignee();
@@ -666,6 +671,43 @@ class TaskManager {
         if (!assignee || !assignee.color) return '';
         
         return `background-color: ${assignee.color} !important; border-left-color: ${assignee.color} !important;`;
+    }
+
+    // タスク削除
+    deleteTask() {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        // 子タスクがある場合は削除を防ぐ
+        const hasChildren = this.tasks.some(t => t.parentTaskId === this.currentTaskId);
+        if (hasChildren) {
+            alert('子タスクがあるタスクは削除できません。先に子タスクを削除してください。');
+            return;
+        }
+
+        // 確認ダイアログ
+        if (!confirm(`タスク「${task.name}」を削除しますか？\nこの操作は取り消せません。`)) {
+            return;
+        }
+
+        // タスクを削除
+        this.tasks = this.tasks.filter(t => t.id !== this.currentTaskId);
+        
+        // 他のタスクの親子関係を更新（削除されたタスクを参照していた場合）
+        this.tasks.forEach(t => {
+            if (t.parentTaskId === this.currentTaskId) {
+                t.parentTaskId = null;
+            }
+            if (t.childTaskId === this.currentTaskId) {
+                t.childTaskId = null;
+            }
+        });
+
+        this.saveTasks();
+        this.renderTasks();
+        this.hideModal('taskDetailModal');
+        
+        alert('タスクが削除されました。');
     }
 
     // 担当者リスト表示
