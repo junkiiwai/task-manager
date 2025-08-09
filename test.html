@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テストページ</title>
+    <style>
+        /* レスポンシブテスト */
+        .test-box {
+            background: #f0f0f0;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+        }
+        
+        /* 480px以下 */
+        @media (max-width: 480px) {
+            .test-box {
+                background: red;
+                font-size: 12px;
+            }
+            .test-box::before {
+                content: "480px以下: ";
+            }
+        }
+        
+        /* 481px-840px */
+        @media (min-width: 481px) and (max-width: 840px) {
+            .test-box {
+                background: orange;
+                font-size: 14px;
+            }
+            .test-box::before {
+                content: "481px-840px: ";
+            }
+        }
+        
+        /* 841px-1000px */
+        @media (min-width: 841px) and (max-width: 1000px) {
+            .test-box {
+                background: yellow;
+                font-size: 16px;
+            }
+            .test-box::before {
+                content: "841px-1000px: ";
+            }
+        }
+        
+        /* 1000px以上 */
+        @media (min-width: 1001px) {
+            .test-box {
+                background: green;
+                font-size: 18px;
+            }
+            .test-box::before {
+                content: "1000px以上: ";
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>レスポンシブテスト</h1>
+        <p>画面幅を変更して色とフォントサイズの変化を確認してください</p>
+        <button onclick="testFunction()">編集テストボタン</button>
+    </div>
+    
+    <script>
+        window.testFunction = function() {
+            alert('ボタンクリック動作確認');
+        };
+        
+        console.log('テストページ読み込み完了');
+        console.log('画面幅:', window.innerWidth);
+    </script>
+</body>
+</html>
