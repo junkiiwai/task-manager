@@ -152,6 +152,13 @@
                             <span id="progressValue">0%</span>
                         </div>
                     </div>
+                    <div class="info-row">
+                        <span class="label">現在作業中:</span>
+                        <div class="work-status-control">
+                            <input type="checkbox" id="workingStatus">
+                            <label for="workingStatus">現在作業中のタスクとしてマークする</label>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="task-description">
@@ -189,6 +196,17 @@
                     <div class="add-assignee">
                         <input type="text" id="newAssigneeName" placeholder="表示名">
                         <input type="text" id="newAssigneeGithub" placeholder="GitHubユーザー名">
+                        <div class="color-selection">
+                            <label>色を選択:</label>
+                            <div class="color-options">
+                                <div class="color-option" data-color="#fce4ec" style="background-color: #fce4ec;" title="淡いピンク"></div>
+                                <div class="color-option" data-color="#e8f5e8" style="background-color: #e8f5e8;" title="淡い緑"></div>
+                                <div class="color-option" data-color="#e3f2fd" style="background-color: #e3f2fd;" title="淡い青"></div>
+                                <div class="color-option" data-color="#fff3e0" style="background-color: #fff3e0;" title="淡いオレンジ"></div>
+                                <div class="color-option" data-color="#f3e5f5" style="background-color: #f3e5f5;" title="淡い紫"></div>
+                            </div>
+                            <input type="hidden" id="selectedColor" value="#e3f2fd">
+                        </div>
                         <button class="btn btn-primary" id="addAssigneeBtn">追加</button>
                     </div>
                 </div>

@@ -163,9 +163,27 @@ class TaskManager {
             this.addAssignee();
         });
 
+        // 色選択イベント
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('color-option')) {
+                // 選択状態をリセット
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                // 選択した色をアクティブにする
+                e.target.classList.add('selected');
+                document.getElementById('selectedColor').value = e.target.dataset.color;
+            }
+        });
+
         // 進捗度変更
         document.getElementById('detailProgress').addEventListener('input', (e) => {
             this.updateProgress(e.target.value);
+        });
+
+        // 作業中ステータス変更
+        document.getElementById('workingStatus').addEventListener('change', (e) => {
+            this.updateWorkingStatus(e.target.checked);
         });
 
         // 編集ボタン
@@ -381,8 +399,11 @@ class TaskManager {
                     : `${childAssignees[0]}\n${childAssignees[1]}...`
             : project.assignee || '未設定';
 
+        // 作業中の場合の背景色を設定
+        const workingStyle = project.isWorking ? this.getWorkingTaskStyle(project.assignee) : '';
+
         projectElement.innerHTML = `
-            <div class="task-row project-row" data-task-id="${project.id}">
+            <div class="task-row project-row" data-task-id="${project.id}" style="${workingStyle}">
                 <div class="task-name">${project.name}</div>
                 <div class="task-assignee">${assigneeDisplay}</div>
                 <div class="task-hours">${totalHours}h</div>
@@ -458,8 +479,11 @@ class TaskManager {
             const childAutoPriority = this.calculateAutoPriority(childTotalHours, childRemainingDays);
             const grandChildTasks = this.getChildTasks(child.id);
 
+            // 作業中の場合の背景色を設定
+            const childWorkingStyle = child.isWorking ? this.getWorkingTaskStyle(child.assignee) : '';
+
             html += `
-                <div class="task-row child-task-row level-${level}" data-task-id="${child.id}">
+                <div class="task-row child-task-row level-${level}" data-task-id="${child.id}" style="${childWorkingStyle}">
                     <div class="task-name">${child.name}</div>
                     <div class="task-assignee">${child.assignee || '未設定'}</div>
                     <div class="task-hours">${childTotalHours}h</div>
@@ -546,6 +570,10 @@ class TaskManager {
         const hasChildren = this.tasks.some(t => t.parentTaskId === taskId);
         progressInput.disabled = hasChildren;
 
+        // 作業中ステータス設定
+        const workingStatus = document.getElementById('workingStatus');
+        workingStatus.checked = task.isWorking || false;
+
         // メモ履歴表示
         this.renderMemoHistory(taskId);
 
@@ -618,6 +646,28 @@ class TaskManager {
         document.getElementById('progressValue').textContent = `${progress}%`;
     }
 
+    // 作業中ステータス更新
+    updateWorkingStatus(isWorking) {
+        const task = this.tasks.find(t => t.id === this.currentTaskId);
+        if (!task) return;
+
+        task.isWorking = isWorking;
+        task.updatedAt = new Date().toISOString();
+
+        this.saveTasks();
+        this.renderTasks();
+    }
+
+    // 作業中タスクのスタイルを取得
+    getWorkingTaskStyle(assigneeName) {
+        if (!assigneeName) return '';
+        
+        const assignee = this.assignees.find(a => a.name === assigneeName);
+        if (!assignee || !assignee.color) return '';
+        
+        return `background-color: ${assignee.color} !important; border-left-color: ${assignee.color} !important;`;
+    }
+
     // 担当者リスト表示
     renderAssigneeList() {
         const assigneeList = document.getElementById('assigneeList');
@@ -632,6 +682,9 @@ class TaskManager {
                     <div class="assignee-github">@${assignee.github}</div>
                 </div>
                 <div class="assignee-actions">
+                    <button class="btn btn-small" onclick="taskManager.editAssignee('${assignee.id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
                     <button class="btn btn-small btn-danger" onclick="taskManager.removeAssignee('${assignee.id}')">
                         <i class="fas fa-trash"></i>
                     </button>
@@ -645,6 +698,7 @@ class TaskManager {
     addAssignee() {
         const name = document.getElementById('newAssigneeName').value.trim();
         const github = document.getElementById('newAssigneeGithub').value.trim();
+        const color = document.getElementById('selectedColor').value;
 
         if (!name || !github) {
             alert('表示名とGitHubユーザー名を入力してください。');
@@ -654,7 +708,8 @@ class TaskManager {
         const assignee = {
             id: Date.now().toString(),
             name: name,
-            github: github
+            github: github,
+            color: color
         };
 
         this.assignees.push(assignee);
@@ -665,6 +720,37 @@ class TaskManager {
 
         document.getElementById('newAssigneeName').value = '';
         document.getElementById('newAssigneeGithub').value = '';
+        // 色選択をリセット
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        document.querySelector('.color-option[data-color="#e3f2fd"]').classList.add('selected');
+        document.getElementById('selectedColor').value = '#e3f2fd';
+    }
+
+    // 担当者編集
+    editAssignee(assigneeId) {
+        const assignee = this.assignees.find(a => a.id === assigneeId);
+        if (!assignee) return;
+
+        const newName = prompt('新しい表示名を入力してください:', assignee.name);
+        if (newName === null) return;
+
+        const newGithub = prompt('新しいGitHubユーザー名を入力してください:', assignee.github);
+        if (newGithub === null) return;
+
+        if (!newName.trim() || !newGithub.trim()) {
+            alert('表示名とGitHubユーザー名は必須です。');
+            return;
+        }
+
+        assignee.name = newName.trim();
+        assignee.github = newGithub.trim();
+
+        this.saveAssignees();
+        this.renderAssigneeList();
+        this.populateAssigneeSelect();
+        this.addUserSelector(); // ユーザー選択UIを更新
     }
 
     // 担当者削除
