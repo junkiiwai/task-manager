@@ -420,8 +420,8 @@ class TaskManager {
         // 背景色を設定（優先順位: 100%完了 > 作業中）
         let taskStyle = '';
         if (totalProgress === 100) {
-            // 100%完了の場合は濃いグレー
-            taskStyle = 'background-color: #dee2e6 !important; color: #495057 !important; opacity: 0.8 !important;';
+            // 100%完了の場合はより濃いグレー
+            taskStyle = 'background-color: #adb5bd !important; color: #343a40 !important; opacity: 0.9 !important;';
         } else if (project.isWorking) {
             // 作業中の場合は担当者の色
             taskStyle = this.getWorkingTaskStyle(project.assignee);
@@ -507,8 +507,8 @@ class TaskManager {
             // 背景色を設定（優先順位: 100%完了 > 作業中）
             let childTaskStyle = '';
             if (childTotalProgress === 100) {
-                // 100%完了の場合は濃いグレー
-                childTaskStyle = 'background-color: #dee2e6 !important; color: #495057 !important; opacity: 0.8 !important;';
+                // 100%完了の場合はより濃いグレー
+                childTaskStyle = 'background-color: #adb5bd !important; color: #343a40 !important; opacity: 0.9 !important;';
             } else if (child.isWorking) {
                 // 作業中の場合は担当者の色
                 childTaskStyle = this.getWorkingTaskStyle(child.assignee);
@@ -602,15 +602,20 @@ class TaskManager {
         const hasChildren = this.tasks.some(t => t.parentTaskId === taskId);
         progressInput.disabled = hasChildren;
 
-        // 作業中ステータス設定（子タスクを持つ場合は非表示）
+        // 作業中ステータス設定（子タスクを持つ場合または100%完了の場合は非表示）
         const workingStatus = document.getElementById('workingStatus');
         const workingStatusContainer = workingStatus.closest('.info-row');
         
-        if (hasChildren) {
-            // 子タスクを持つ場合は非表示
+        if (hasChildren || totalProgress === 100) {
+            // 子タスクを持つ場合または100%完了の場合は非表示
             workingStatusContainer.style.display = 'none';
+            // 100%完了の場合は作業中フラグもクリア
+            if (totalProgress === 100 && task.isWorking) {
+                task.isWorking = false;
+                this.saveTasks();
+            }
         } else {
-            // 子タスクを持たない場合は表示
+            // 子タスクを持たず、完了していない場合は表示
             workingStatusContainer.style.display = 'block';
             workingStatus.checked = task.isWorking || false;
         }
@@ -708,6 +713,15 @@ class TaskManager {
     updateWorkingStatus(isWorking) {
         const task = this.tasks.find(t => t.id === this.currentTaskId);
         if (!task) return;
+
+        if (isWorking) {
+            // 作業中にする場合、同じ担当者の他のタスクの作業中を解除
+            this.tasks.forEach(t => {
+                if (t.id !== this.currentTaskId && t.assignee === task.assignee && t.isWorking) {
+                    t.isWorking = false;
+                }
+            });
+        }
 
         task.isWorking = isWorking;
         task.updatedAt = new Date().toISOString();
@@ -1000,18 +1014,29 @@ class TaskManager {
         }
 
         const assigneeSpan = document.getElementById('detailAssignee');
-        const assigneeInput = document.getElementById('editAssigneeInput');
+        const assigneeSelect = document.getElementById('editAssigneeSelect');
         const editBtn = document.getElementById('editAssigneeBtn');
         const saveBtn = document.getElementById('saveAssigneeBtn');
         const cancelBtn = document.getElementById('cancelAssigneeBtn');
 
-        assigneeInput.value = task.assignee || '';
+        // プルダウンの選択肢を更新
+        assigneeSelect.innerHTML = '<option value="">未設定</option>';
+        this.assignees.forEach(assignee => {
+            const option = document.createElement('option');
+            option.value = assignee.name;
+            option.textContent = assignee.name;
+            assigneeSelect.appendChild(option);
+        });
+
+        // 現在の担当者を選択
+        assigneeSelect.value = task.assignee || '';
+        
         assigneeSpan.style.display = 'none';
-        assigneeInput.style.display = 'inline-block';
+        assigneeSelect.style.display = 'inline-block';
         editBtn.style.display = 'none';
         saveBtn.style.display = 'inline-block';
         cancelBtn.style.display = 'inline-block';
-        assigneeInput.focus();
+        assigneeSelect.focus();
     }
 
     // タスクの担当者編集保存
@@ -1019,26 +1044,39 @@ class TaskManager {
         const task = this.tasks.find(t => t.id === this.currentTaskId);
         if (!task) return;
 
-        const assigneeInput = document.getElementById('editAssigneeInput');
-        const newAssignee = assigneeInput.value.trim();
+        const assigneeSelect = document.getElementById('editAssigneeSelect');
+        const newAssignee = assigneeSelect.value;
 
         task.assignee = newAssignee;
         task.updatedAt = new Date().toISOString();
+        
+        // UI要素を更新
+        const assigneeSpan = document.getElementById('detailAssignee');
+        const editBtn = document.getElementById('editAssigneeBtn');
+        const saveBtn = document.getElementById('saveAssigneeBtn');
+        const cancelBtn = document.getElementById('cancelAssigneeBtn');
+
+        assigneeSpan.textContent = newAssignee || '未設定';
+        assigneeSpan.style.display = 'inline';
+        assigneeSelect.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+        saveBtn.style.display = 'none';  // 5. 保存後は保存ボタンを非表示
+        cancelBtn.style.display = 'none';
+
         this.saveTasks();
         this.renderTasks();
-        this.showTaskDetail(this.currentTaskId);
     }
 
     // タスクの担当者編集キャンセル
     cancelEditTaskAssignee() {
         const assigneeSpan = document.getElementById('detailAssignee');
-        const assigneeInput = document.getElementById('editAssigneeInput');
+        const assigneeSelect = document.getElementById('editAssigneeSelect');
         const editBtn = document.getElementById('editAssigneeBtn');
         const saveBtn = document.getElementById('saveAssigneeBtn');
         const cancelBtn = document.getElementById('cancelAssigneeBtn');
 
         assigneeSpan.style.display = 'inline';
-        assigneeInput.style.display = 'none';
+        assigneeSelect.style.display = 'none';
         editBtn.style.display = 'inline-block';
         saveBtn.style.display = 'none';
         cancelBtn.style.display = 'none';
