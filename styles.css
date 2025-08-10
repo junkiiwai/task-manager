@@ -201,6 +201,7 @@ body {
     width: 720px !important;
     max-width: calc(100vw - 40px) !important;
     overflow-x: auto !important;
+    gap: 4px !important;
 }
 
 /* 階層に応じたtask-rowの幅調整 - 大画面用（840px以上で適用） */
@@ -208,21 +209,25 @@ body {
     .task-row.project-row {
         width: 690px !important;
         max-width: calc(100vw - 60px) !important;
+        gap: 6px !important;
     }
 
     .task-row.child-task-row.level-1 {
         width: 670px !important;
         max-width: calc(100vw - 60px) !important;
+        gap: 6px !important;
     }
 
     .task-row.child-task-row.level-2 {
         width: 650px !important;
         max-width: calc(100vw - 60px) !important;
+        gap: 6px !important;
     }
 
     .task-row.child-task-row.level-3 {
         width: 630px !important;
         max-width: calc(100vw - 60px) !important;
+        gap: 6px !important;
     }
 }
 
@@ -266,7 +271,7 @@ body {
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 0px !important;
+        gap: 2px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
     }
@@ -398,7 +403,7 @@ body {
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 1px !important;
+        gap: 3px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
     }
@@ -783,9 +788,10 @@ body {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     flex-shrink: 1 !important;
-    font-size: 12px !important;
+    font-size: clamp(10px, 2vw, 14px) !important;
     width: 30% !important;
     min-width: 0 !important;
+    max-width: none !important;
 }
 
 /* 階層に応じたタスク名の横幅調整 - 大画面用（840px以上で適用） */
