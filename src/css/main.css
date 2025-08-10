@@ -297,19 +297,19 @@ body {
     
     /* 階層に応じたタスク名の幅調整 */
     .task-row.project-row .task-name {
-        width: 32% !important;
-    }
-    
-    .task-row.child-task-row.level-1 .task-name {
         width: 30% !important;
     }
     
+    .task-row.child-task-row.level-1 .task-name {
+        width: max(calc(30% - 20px), 20%) !important;
+    }
+    
     .task-row.child-task-row.level-2 .task-name {
-        width: 28% !important;
+        width: max(calc(30% - 40px), 15%) !important;
     }
     
     .task-row.child-task-row.level-3 .task-name {
-        width: 25% !important;
+        width: max(calc(30% - 60px), 10%) !important;
     }
     
     .task-assignee {
@@ -453,19 +453,19 @@ body {
     
     /* 階層に応じたタスク名の幅調整 */
     .task-row.project-row .task-name {
-        width: 32% !important;
-    }
-    
-    .task-row.child-task-row.level-1 .task-name {
         width: 30% !important;
     }
     
+    .task-row.child-task-row.level-1 .task-name {
+        width: max(calc(30% - 20px), 20%) !important;
+    }
+    
     .task-row.child-task-row.level-2 .task-name {
-        width: 28% !important;
+        width: max(calc(30% - 40px), 15%) !important;
     }
     
     .task-row.child-task-row.level-3 .task-name {
-        width: 25% !important;
+        width: max(calc(30% - 60px), 10%) !important;
     }
     
     .task-assignee {
@@ -614,19 +614,19 @@ body {
     
     /* 階層に応じたタスク名の幅調整 */
     .task-row.project-row .task-name {
-        width: 32% !important;
-    }
-    
-    .task-row.child-task-row.level-1 .task-name {
         width: 30% !important;
     }
     
+    .task-row.child-task-row.level-1 .task-name {
+        width: max(calc(30% - 20px), 20%) !important;
+    }
+    
     .task-row.child-task-row.level-2 .task-name {
-        width: 28% !important;
+        width: max(calc(30% - 40px), 15%) !important;
     }
     
     .task-row.child-task-row.level-3 .task-name {
-        width: 25% !important;
+        width: max(calc(30% - 40px), 15%) !important;
     }
     
     .task-assignee {
@@ -769,19 +769,19 @@ body {
     }
     
     .task-row.project-row .task-name {
-        width: 32% !important;
-    }
-    
-    .task-row.child-task-row.level-1 .task-name {
         width: 30% !important;
     }
     
+    .task-row.child-task-row.level-1 .task-name {
+        width: max(calc(30% - 20px), 20%) !important;
+    }
+    
     .task-row.child-task-row.level-2 .task-name {
-        width: 28% !important;
+        width: max(calc(30% - 40px), 15%) !important;
     }
     
     .task-row.child-task-row.level-3 .task-name {
-        width: 25% !important;
+        width: max(calc(30% - 60px), 10%) !important;
     }
     
     .task-assignee {
@@ -901,33 +901,30 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 30%;
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 .task-name:hover {
     color: #667eea;
 }
 
-/* 大画面での階層別タスク名幅調整 */
-@media (min-width: 841px) {
-    .task-row.project-row .task-name {
-        font-size: 14px !important;
-        font-weight: 700 !important;
-    }
-    
-    .task-row.child-task-row.level-1 .task-name {
-        font-size: 13px !important;
-        font-weight: 600 !important;
-    }
-    
-    .task-row.child-task-row.level-2 .task-name {
-        font-size: 12px !important;
-        font-weight: 500 !important;
-    }
-    
-    .task-row.child-task-row.level-3 .task-name {
-        font-size: 11px !important;
-        font-weight: 400 !important;
-    }
+/* 階層別タスク名の幅調整 */
+.task-row.project-row .task-name {
+    width: 30%;
+}
+
+.task-row.child-task-row.level-1 .task-name {
+    width: max(calc(30% - 20px), 20%);
+}
+
+.task-row.child-task-row.level-2 .task-name {
+    width: max(calc(30% - 40px), 15%);
+}
+
+.task-row.child-task-row.level-3 .task-name {
+    width: max(calc(30% - 60px), 10%);
 }
 
 /* 担当者、所要時間、期限、残日数、進捗、優先度の基本スタイル */
