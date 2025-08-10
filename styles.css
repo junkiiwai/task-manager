@@ -101,9 +101,9 @@ body {
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    background: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* メインコンテンツ */
@@ -112,16 +112,17 @@ body {
 }
 
 .board-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 30px;
-    height: calc(100vh - 200px);
 }
 
 .projects-grid {
-    display: block !important;
-    margin-bottom: 30px !important;
-    padding: 20px !important;
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .board {
@@ -130,9 +131,6 @@ body {
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
 }
 
 .board h2 {
@@ -147,34 +145,30 @@ body {
 
 .board h2 i {
     color: #667eea;
+    font-size: 18px;
 }
 
 .tasks-container {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-/* プロジェクトカード */
 .project-card {
-    background: white !important;
-    border-radius: 8px !important;
-    padding: 8px 12px !important;
-    margin-bottom: 12px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-    border-left: 3px solid #667eea !important;
-    transition: all 0.3s ease !important;
-    position: relative !important;
-    cursor: pointer !important;
-    min-width: 720px !important;
-    width: 720px !important;
-    display: flex !important;
-    flex-direction: column !important;
+    background: white;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .project-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .project-card.completed {
@@ -321,6 +315,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-hours {
@@ -339,6 +334,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-remaining {
@@ -365,8 +361,8 @@ body {
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
         white-space: nowrap !important;
     }
     
@@ -470,6 +466,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-hours {
@@ -488,6 +485,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-remaining {
@@ -514,8 +512,8 @@ body {
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
         white-space: nowrap !important;
     }
     
@@ -528,8 +526,6 @@ body {
         height: 3px !important;
     }
 }
-
-
 
 /* レスポンシブ対応: 841px-1000px - 中画面 */
 @media (min-width: 841px) and (max-width: 1000px) {
@@ -613,6 +609,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-hours {
@@ -631,6 +628,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-remaining {
@@ -657,8 +655,8 @@ body {
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
         white-space: nowrap !important;
     }
     
@@ -670,8 +668,6 @@ body {
         width: 25px !important;
         height: 4px !important;
     }
-    
-
 }
 
 /* レスポンシブ対応: 1000px以上 - 大画面 */
@@ -758,6 +754,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-hours {
@@ -776,6 +773,7 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
     
     .task-remaining {
@@ -802,8 +800,8 @@ body {
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
         white-space: nowrap !important;
     }
     
@@ -815,8 +813,6 @@ body {
         width: 30px !important;
         height: 5px !important;
     }
-    
-
 }
 
 .project-row {
@@ -938,6 +934,7 @@ body {
     min-width: 0 !important;
     flex-shrink: 1 !important;
     line-height: 1.2 !important;
+    text-align: center !important;
 }
 
 .task-hours {
@@ -957,6 +954,7 @@ body {
     width: 22% !important;
     min-width: 0 !important;
     flex-shrink: 1 !important;
+    text-align: center !important;
 }
 
 .task-remaining {
@@ -987,6 +985,9 @@ body {
     width: 5% !important;
     min-width: 0 !important;
     flex-shrink: 1 !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    white-space: nowrap !important;
 }
 
 .progress-bar {
