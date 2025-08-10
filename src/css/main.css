@@ -101,8 +101,7 @@ body {
 }
 
 .btn-secondary:hover {
-    background: white;
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -112,17 +111,16 @@ body {
 }
 
 .board-container {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
     gap: 30px;
+    flex-wrap: wrap;
 }
 
 .projects-grid {
-    display: block;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    flex: 1;
 }
 
 .board {
@@ -131,11 +129,13 @@ body {
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
 }
 
 .board h2 {
     color: #2c3e50;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     margin-bottom: 20px;
     display: flex;
@@ -145,25 +145,22 @@ body {
 
 .board h2 i {
     color: #667eea;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .tasks-container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 15px;
 }
 
 .project-card {
     background: white;
     border-radius: 12px;
-    padding: 8px 12px;
-    margin-bottom: 15px;
+    padding: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    border-left: 4px solid #667eea;
-    cursor: pointer;
     transition: all 0.3s ease;
-    position: relative;
+    border: 1px solid #e9ecef;
 }
 
 .project-card:hover {
@@ -173,95 +170,72 @@ body {
 
 .project-card.completed {
     background: #f8f9fa;
-    border-left-color: #28a745;
-    opacity: 0.8;
+    border-color: #d4edda;
 }
 
 .project-card.completed .project-name {
-    text-decoration: line-through;
     color: #6c757d;
+    text-decoration: line-through;
 }
 
+/* タスク行の基本スタイル */
 .task-row {
-    display: flex !important;
-    align-items: center !important;
-    padding: 8px 12px !important;
-    margin-bottom: 4px !important;
-    border-radius: 6px !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    font-size: 12px !important;
-    box-sizing: border-box !important;
-    width: 720px !important;
-    max-width: calc(100vw - 40px) !important;
-    overflow-x: auto !important;
-    gap: 4px !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    font-size: 13px;
+    border: 1px solid #f1f3f4;
 }
 
-/* 階層に応じたtask-rowの幅調整 - 大画面用（840px以上で適用） */
-@media (min-width: 841px) {
-    .task-row.project-row {
-        width: 690px !important;
-        max-width: calc(100vw - 60px) !important;
-        gap: 3px !important;
-    }
-
-    .task-row.child-task-row.level-1 {
-        width: 670px !important;
-        max-width: calc(100vw - 60px) !important;
-        gap: 3px !important;
-    }
-
-    .task-row.child-task-row.level-2 {
-        width: 650px !important;
-        max-width: calc(100vw - 60px) !important;
-        gap: 3px !important;
-    }
-
-    .task-row.child-task-row.level-3 {
-        width: 630px !important;
-        max-width: calc(100vw - 60px) !important;
-        gap: 3px !important;
-    }
+.task-row:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
-/* レスポンシブ対応: 480px以下 - 超小画面 */
-@media (max-width: 480px) {
+/* レスポンシブ対応: 1001px以上 - 大画面 */
+@media (min-width: 1001px) {
     .projects-grid {
         display: block !important;
         width: 100% !important;
-        padding: 5px !important;
+        max-width: 900px !important;
+        margin: 0 auto !important;
+        padding: 20px !important;
     }
     
-    /* 1. board padding 縮小 */
+    /* 1. board padding 標準サイズ */
     .board {
-        padding: 10px !important;
+        padding: 25px !important;
     }
     
-    /* 3. project-card padding 縮小 */
+    /* 3. project-card padding 標準サイズ */
     .project-card {
         width: 100% !important;
-        max-width: 100% !important;
-        margin-bottom: 15px !important;
-        overflow-x: hidden !important;
-        padding: 4px 6px !important;
+        max-width: 860px !important;
+        margin-bottom: 25px !important;
+        padding: 15px 20px !important;
     }
     
     .header h1 {
-        font-size: 16px !important;
+        font-size: 28px !important;
     }
     
     .btn {
-        font-size: 10px !important;
-        padding: 6px 10px !important;
+        font-size: 16px !important;
+        padding: 12px 24px !important;
     }
     
-    /* 2. task-row 超小画面用 */
+    /* 2. task-row 大画面用 */
     .task-row {
-        font-size: 9px !important;
-        padding: 2px 4px !important;
-        width: calc(100vw - 20px) !important;
-        max-width: calc(100vw - 20px) !important;
+        font-size: 14px !important;
+        padding: 10px 15px !important;
+        width: 860px !important;
+        max-width: calc(100vw - 100px) !important;
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
@@ -270,18 +244,9 @@ body {
         overflow-x: hidden !important;
     }
     
-    /* 全ての階層で同じ幅 */
-    .task-row.project-row,
-    .task-row.child-task-row.level-1,
-    .task-row.child-task-row.level-2,
-    .task-row.child-task-row.level-3 {
-        width: calc(100vw - 20px) !important;
-        max-width: calc(100vw - 20px) !important;
-    }
-    
-    /* 4. タスク要素のwidth 縮小 + 5. task-name font-size 縮小 */
+    /* 4. タスク要素のwidth 大画面用に調整 + 5. task-name font-size 調整 */
     .task-name {
-        font-size: 9px !important;
+        font-size: 12px !important;
         width: 30% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
@@ -308,10 +273,10 @@ body {
     }
     
     .task-assignee {
-        font-size: 7px !important;
-        width: 15% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 12px !important;
+        min-width: 80px !important;
+        max-width: 120px !important;
+        flex-shrink: 0 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
@@ -319,60 +284,217 @@ body {
     }
     
     .task-hours {
-        font-size: 7px !important;
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 12px !important;
+        min-width: 60px !important;
+        max-width: 80px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-deadline {
-        font-size: 6px !important;
-        width: 20% !important;
+        font-size: 12px !important;
+        min-width: 100px !important;
+        max-width: 140px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-remaining {
+        font-size: 12px !important;
+        min-width: 60px !important;
+        max-width: 80px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-progress {
+        font-size: 12px !important;
+        min-width: 100px !important;
+        max-width: 140px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-priority {
+        font-size: 11px !important;
+        min-width: 32px !important;
+        max-width: 40px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .progress-text {
+        font-size: 11px !important;
+    }
+    
+    .progress-bar {
+        width: 60px !important;
+        height: 6px !important;
+    }
+}
+
+/* レスポンシブ対応: 841px-1000px - 中画面 */
+@media (min-width: 841px) and (max-width: 1000px) {
+    .projects-grid {
+        display: block !important;
+        width: 100% !important;
+        max-width: 750px !important;
+        margin: 0 auto !important;
+        padding: 15px !important;
+    }
+    
+    /* 1. board padding 少し縮小 */
+    .board {
+        padding: 20px !important;
+    }
+    
+    /* 3. project-card padding 少し縮小 */
+    .project-card {
+        width: 100% !important;
+        max-width: 720px !important;
+        margin-bottom: 20px !important;
+        padding: 8px 10px !important;
+    }
+    
+    .header h1 {
+        font-size: 24px !important;
+    }
+    
+    .btn {
+        font-size: 14px !important;
+        padding: 10px 20px !important;
+    }
+    
+    /* 2. task-row 中画面用 */
+    .task-row {
+        font-size: 12px !important;
+        padding: 6px 8px !important;
+        width: 720px !important;
+        max-width: calc(100vw - 50px) !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 1px !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* 4. タスク要素のwidth 中サイズ画面用に調整 + 5. task-name font-size 調整 */
+    .task-name {
+        font-size: 10px !important;
+        width: 30% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    /* 階層に応じたタスク名の幅調整 */
+    .task-row.project-row .task-name {
+        width: 32% !important;
+    }
+    
+    .task-row.child-task-row.level-1 .task-name {
+        width: 30% !important;
+    }
+    
+    .task-row.child-task-row.level-2 .task-name {
+        width: 28% !important;
+    }
+    
+    .task-row.child-task-row.level-3 .task-name {
+        width: 25% !important;
+    }
+    
+    .task-assignee {
+        font-size: 10px !important;
+        min-width: 70px !important;
+        max-width: 100px !important;
+        flex-shrink: 0 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
         text-align: center !important;
     }
     
-    .task-remaining {
-        font-size: 6px !important;
-        width: 8% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+    .task-hours {
+        font-size: 10px !important;
+        min-width: 50px !important;
+        max-width: 70px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-deadline {
+        font-size: 10px !important;
+        min-width: 80px !important;
+        max-width: 120px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .task-remaining {
+        font-size: 10px !important;
+        min-width: 50px !important;
+        max-width: 70px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-progress {
-        width: 12% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0 !important;
+        font-size: 10px !important;
+        min-width: 80px !important;
+        max-width: 120px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-priority {
-        font-size: 6px !important;
-        width: 7% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 9px !important;
+        min-width: 32px !important;
+        max-width: 40px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
-        overflow: visible !important;
-        text-overflow: unset !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .progress-text {
-        font-size: 5px !important;
+        font-size: 9px !important;
     }
     
     .progress-bar {
-        width: 15px !important;
-        height: 2px !important;
+        width: 50px !important;
+        height: 4px !important;
     }
 }
 
@@ -460,9 +582,9 @@ body {
     
     .task-assignee {
         font-size: 9px !important;
-        width: 15% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        min-width: 60px !important;
+        max-width: 80px !important;
+        flex-shrink: 0 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
@@ -471,100 +593,102 @@ body {
     
     .task-hours {
         font-size: 9px !important;
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        min-width: 40px !important;
+        max-width: 60px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
-    }
-    
-    .task-deadline {
-        font-size: 8px !important;
-        width: 22% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+    }
+    
+    .task-deadline {
+        font-size: 9px !important;
+        min-width: 70px !important;
+        max-width: 100px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-remaining {
-        font-size: 8px !important;
-        width: 8% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 9px !important;
+        min-width: 40px !important;
+        max-width: 60px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-progress {
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0 !important;
+        font-size: 9px !important;
+        min-width: 70px !important;
+        max-width: 100px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-priority {
         font-size: 8px !important;
-        width: 7% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        min-width: 32px !important;
+        max-width: 40px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
-        overflow: visible !important;
-        text-overflow: unset !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .progress-text {
-        font-size: 7px !important;
+        font-size: 8px !important;
     }
     
     .progress-bar {
-        width: 20px !important;
+        width: 40px !important;
         height: 3px !important;
     }
 }
 
-/* レスポンシブ対応: 841px-1000px - 中画面 */
-@media (min-width: 841px) and (max-width: 1000px) {
+/* レスポンシブ対応: 480px以下 - 小画面 */
+@media (max-width: 480px) {
     .projects-grid {
         display: block !important;
         width: 100% !important;
-        max-width: 750px !important;
-        margin: 0 auto !important;
-        padding: 15px !important;
+        padding: 5px !important;
     }
     
-    /* 1. board padding 少し縮小 */
     .board {
-        padding: 20px !important;
+        padding: 10px !important;
     }
     
-    /* 3. project-card padding 少し縮小 */
     .project-card {
         width: 100% !important;
-        max-width: 720px !important;
-        margin-bottom: 20px !important;
-        padding: 8px 10px !important;
+        max-width: 100% !important;
+        margin-bottom: 15px !important;
+        padding: 5px 6px !important;
     }
     
     .header h1 {
-        font-size: 24px !important;
+        font-size: 18px !important;
     }
     
     .btn {
-        font-size: 14px !important;
-        padding: 10px 20px !important;
+        font-size: 11px !important;
+        padding: 6px 12px !important;
     }
     
-    /* 2. task-row 中画面用 */
     .task-row {
-        font-size: 12px !important;
-        padding: 6px 8px !important;
-        width: 720px !important;
-        max-width: calc(100vw - 50px) !important;
+        font-size: 10px !important;
+        padding: 3px 4px !important;
+        width: calc(100vw - 20px) !important;
+        max-width: calc(100vw - 20px) !important;
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
@@ -573,154 +697,17 @@ body {
         overflow-x: hidden !important;
     }
     
-    /* 4. タスク要素のwidth 中サイズ画面用に調整 + 5. task-name font-size 調整 */
+    /* 全ての階層で同じ幅 */
+    .task-row.project-row,
+    .task-row.child-task-row.level-1,
+    .task-row.child-task-row.level-2,
+    .task-row.child-task-row.level-3 {
+        width: calc(100vw - 20px) !important;
+        max-width: calc(100vw - 20px) !important;
+    }
+    
     .task-name {
-        font-size: 10px !important;
-        width: 30% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-    }
-    
-    /* 階層に応じたタスク名の幅調整 */
-    .task-row.project-row .task-name {
-        width: 32% !important;
-    }
-    
-    .task-row.child-task-row.level-1 .task-name {
-        width: 30% !important;
-    }
-    
-    .task-row.child-task-row.level-2 .task-name {
-        width: 28% !important;
-    }
-    
-    .task-row.child-task-row.level-3 .task-name {
-        width: 25% !important;
-    }
-    
-    .task-assignee {
-        font-size: 10px !important;
-        width: 15% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-        text-align: center !important;
-    }
-    
-    .task-hours {
-        font-size: 10px !important;
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        text-align: center !important;
-    }
-    
-    .task-deadline {
-        font-size: 9px !important;
-        width: 22% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-        text-align: center !important;
-    }
-    
-    .task-remaining {
-        font-size: 9px !important;
-        width: 8% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        text-align: center !important;
-    }
-    
-    .task-progress {
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0 !important;
-    }
-    
-    .task-priority {
-        font-size: 9px !important;
-        width: 7% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        text-align: center !important;
-        overflow: visible !important;
-        text-overflow: unset !important;
-        white-space: nowrap !important;
-    }
-    
-    .progress-text {
         font-size: 8px !important;
-    }
-    
-    .progress-bar {
-        width: 25px !important;
-        height: 4px !important;
-    }
-}
-
-/* レスポンシブ対応: 1000px以上 - 大画面 */
-@media (min-width: 1001px) {
-    .projects-grid {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 20px !important;
-        width: 100% !important;
-        max-width: 1500px !important;
-        margin: 0 auto !important;
-        padding: 20px !important;
-    }
-    
-    /* 1. board padding 標準サイズ */
-    .board {
-        padding: 25px !important;
-    }
-    
-    /* 3. project-card padding 標準サイズ */
-    .project-card {
-        width: 100% !important;
-        max-width: 720px !important;
-        margin-bottom: 0 !important;
-        padding: 8px 12px !important;
-    }
-    
-    .header h1 {
-        font-size: 28px !important;
-    }
-    
-    .btn {
-        font-size: 14px !important;
-        padding: 12px 24px !important;
-    }
-    
-    /* 2. task-row 大画面用 */
-    .task-row {
-        font-size: 12px !important;
-        padding: 8px 12px !important;
-        width: 720px !important;
-        max-width: calc(100vw - 60px) !important;
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        align-items: center !important;
-        gap: 2px !important;
-        box-sizing: border-box !important;
-        overflow-x: hidden !important;
-    }
-    
-    /* 4. タスク要素のwidth 大画面用に調整 + 5. task-name font-size 調整 */
-    .task-name {
-        font-size: 11px !important;
         width: 30% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
@@ -729,13 +716,12 @@ body {
         white-space: nowrap !important;
     }
     
-    /* 階層に応じたタスク名の幅調整 */
     .task-row.project-row .task-name {
-        width: 35% !important;
+        width: 32% !important;
     }
     
     .task-row.child-task-row.level-1 .task-name {
-        width: 32% !important;
+        width: 30% !important;
     }
     
     .task-row.child-task-row.level-2 .task-name {
@@ -747,10 +733,10 @@ body {
     }
     
     .task-assignee {
-        font-size: 11px !important;
-        width: 15% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 8px !important;
+        min-width: 50px !important;
+        max-width: 70px !important;
+        flex-shrink: 0 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
@@ -758,79 +744,88 @@ body {
     }
     
     .task-hours {
-        font-size: 11px !important;
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 8px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
-    }
-    
-    .task-deadline {
-        font-size: 10px !important;
-        width: 22% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+    }
+    
+    .task-deadline {
+        font-size: 8px !important;
+        min-width: 60px !important;
+        max-width: 80px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-remaining {
-        font-size: 10px !important;
-        width: 8% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 8px !important;
+        min-width: 35px !important;
+        max-width: 50px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-progress {
-        width: 10% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0 !important;
+        font-size: 8px !important;
+        min-width: 60px !important;
+        max-width: 80px !important;
+        flex-shrink: 0 !important;
+        text-align: center !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
     }
     
     .task-priority {
-        font-size: 10px !important;
-        width: 7% !important;
-        min-width: 0 !important;
-        flex-shrink: 1 !important;
+        font-size: 7px !important;
+        min-width: 32px !important;
+        max-width: 40px !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
-        overflow: visible !important;
-        text-overflow: unset !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
     .progress-text {
-        font-size: 9px !important;
+        font-size: 7px !important;
     }
     
     .progress-bar {
         width: 30px !important;
-        height: 5px !important;
+        height: 2px !important;
     }
 }
 
+/* プロジェクト行と子タスク行のスタイル */
 .project-row {
-    background: white !important;
-    border-left: 3px solid #667eea !important;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border: 2px solid #dee2e6 !important;
 }
 
 .project-row:hover {
-    background: #f8f9fa !important;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%) !important;
 }
 
 .child-task-row {
-    background: #f8f9fa !important;
-    border-left: 2px solid #dee2e6 !important;
+    background: white !important;
+    border: 1px solid #f1f3f4 !important;
 }
 
 .child-task-row:hover {
-    background: #e9ecef !important;
+    background: #f8f9fa !important;
+    border-color: #dee2e6 !important;
 }
 
 .child-task-row.level-1 {
@@ -845,151 +840,130 @@ body {
     margin-left: 60px !important;
 }
 
+/* タスク名の基本スタイル */
 .task-name {
-    font-weight: 600 !important;
-    color: #2c3e50 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    flex-shrink: 1 !important;
-    font-size: clamp(10px, 2vw, 14px) !important;
-    width: 30% !important;
-    min-width: 0 !important;
-    max-width: none !important;
+    font-weight: 600;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-/* 階層に応じたタスク名の横幅調整 - 大画面用（840px以上で適用） */
+.task-name:hover {
+    color: #667eea;
+}
+
+/* 大画面での階層別タスク名幅調整 */
 @media (min-width: 841px) {
     .task-row.project-row .task-name {
-        width: 35% !important;
-        min-width: 0 !important;
-        max-width: none !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
     }
-
+    
     .task-row.child-task-row.level-1 .task-name {
-        width: 32% !important;
-        min-width: 0 !important;
-        max-width: none !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
     }
-
+    
     .task-row.child-task-row.level-2 .task-name {
-        width: 28% !important;
-        min-width: 0 !important;
-        max-width: none !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
     }
-
+    
     .task-row.child-task-row.level-3 .task-name {
-        width: 25% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-    }
-    
-    /* 大画面でのその他タスク要素の幅設定 */
-    .task-assignee {
-        width: 15% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-    }
-    
-    .task-hours {
-        width: 10% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-        text-align: center !important;
-    }
-    
-    .task-deadline {
-        width: 20% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-    }
-    
-    .task-remaining {
-        width: 8% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-        text-align: center !important;
-    }
-    
-    .task-progress {
-        width: 10% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-    }
-    
-    .task-priority {
-        width: 7% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-        text-align: center !important;
+        font-size: 11px !important;
+        font-weight: 400 !important;
     }
 }
 
+/* 担当者、所要時間、期限、残日数、進捗、優先度の基本スタイル */
 .task-assignee {
-    color: #6c757d !important;
-    white-space: pre-line !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    width: 15% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important;
-    line-height: 1.2 !important;
-    text-align: center !important;
+    color: #6c757d;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 80px;
+    max-width: 120px;
+    flex-shrink: 0;
 }
 
 .task-hours {
-    color: #6c757d !important;
-    text-align: center !important;
-    white-space: nowrap !important;
-    width: 10% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important;
+    color: #495057;
+    font-weight: 600;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 60px;
+    max-width: 80px;
+    flex-shrink: 0;
 }
 
 .task-deadline {
-    color: #6c757d !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    width: 22% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important;
-    text-align: center !important;
+    color: #6c757d;
+    font-weight: 500;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 100px;
+    max-width: 140px;
+    flex-shrink: 0;
 }
 
 .task-remaining {
-    color: #6c757d !important;
-    text-align: center !important;
-    white-space: nowrap !important;
-    width: 8% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important;
+    color: #dc3545;
+    font-weight: 600;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 60px;
+    max-width: 80px;
+    flex-shrink: 0;
 }
 
 .task-progress {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 0 !important;
-    width: 10% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 100px;
+    max-width: 140px;
+    flex-shrink: 0;
 }
 
+/* 優先度表示の統一されたスタイル */
 .task-priority {
-    padding: 4px 6px !important;
-    font-size: 10px !important;
+    padding: 4px 8px !important;
+    border-radius: 12px !important;
+    font-size: 11px !important;
     font-weight: 600 !important;
-    text-align: center !important;
     text-transform: uppercase !important;
-    width: 5% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     white-space: nowrap !important;
+    min-width: 32px !important;
+    max-width: 40px !important;
+    flex-shrink: 0 !important;
 }
 
+/* 優先度の色分け */
+.priority-1 { background: #e3f2fd !important; color: #1976d2 !important; }
+.priority-2 { background: #f3e5f5 !important; color: #7b1fa2 !important; }
+.priority-3 { background: #fff3e0 !important; color: #f57c00 !important; }
+.priority-4 { background: #ffebee !important; color: #d32f2f !important; }
+.priority-5 { background: #ffcdd2 !important; color: #c62828 !important; }
+
+/* 進捗バー */
 .progress-bar {
     width: 50px !important;
     height: 4px !important;
@@ -1191,71 +1165,14 @@ body {
 .task-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .task-name {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
-    color: #2c3e50;
-    flex: 1;
-    margin-right: 10px;
-}
-
-.task-priority {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.priority-1 { background: #e3f2fd; color: #1976d2; }
-.priority-2 { background: #f3e5f5; color: #7b1fa2; }
-.priority-3 { background: #fff3e0; color: #f57c00; }
-.priority-4 { background: #ffebee; color: #d32f2f; }
-.priority-5 { background: #ffcdd2; color: #c62828; }
-
-.task-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 10px;
-    font-size: 13px;
-    color: #6c757d;
-}
-
-.task-info span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.task-progress {
-    margin-top: 10px;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 8px;
-    background: #e9ecef;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 5px;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    border-radius: 4px;
-    transition: width 0.3s ease;
-}
-
-.progress-text {
-    font-size: 12px;
-    color: #6c757d;
-    text-align: right;
+    color: #333;
 }
 
 /* モーダル */

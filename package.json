@@ -1,0 +1,36 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "モダンで使いやすいタスク管理ツール",
+  "main": "src/html/index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'ビルド処理をここに追加'",
+    "test": "echo 'テスト処理をここに追加'",
+    "lint": "echo 'リント処理をここに追加'"
+  },
+  "keywords": [
+    "task-management",
+    "project-management",
+    "web-app",
+    "javascript",
+    "html5",
+    "css3"
+  ],
+  "author": "junkiiwai",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/junkiiwai/task-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/junkiiwai/task-manager/issues"
+  },
+  "homepage": "https://junkiiwai.github.io/task-manager",
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

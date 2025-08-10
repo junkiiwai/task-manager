@@ -442,7 +442,7 @@ class TaskManager {
                     </div>
                     <div class="progress-text">${totalProgress}%</div>
                 </div>
-                <div class="task-priority priority-${autoPriority}">優先度${autoPriority}</div>
+                <div class="task-priority priority-${autoPriority}">P${autoPriority}</div>
             </div>
             ${this.renderChildTasks(childTasks, 1)}
         `;
@@ -529,7 +529,7 @@ class TaskManager {
                         </div>
                         <div class="progress-text">${childTotalProgress}%</div>
                     </div>
-                    <div class="task-priority priority-${childAutoPriority}">優先度${childAutoPriority}</div>
+                    <div class="task-priority priority-${childAutoPriority}">P${childAutoPriority}</div>
                 </div>
                 ${this.renderChildTasks(grandChildTasks, level + 1)}
             `;

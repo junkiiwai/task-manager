@@ -53,15 +53,60 @@
 - **レスポンシブ**: モバイルファーストデザイン
 - **アクセシビリティ**: キーボード操作対応
 
-## ファイル構成
+## プロジェクト構造
 
 ```
 task-manager/
-├── index.html          # メインHTMLファイル
-├── styles.css          # スタイルシート
-├── script.js           # JavaScript機能
-└── README.md           # このファイル
+├── src/                    # ソースコード
+│   ├── js/                # JavaScriptファイル
+│   │   └── main.js        # メインロジック
+│   ├── css/               # スタイルシート
+│   │   └── main.css       # メインスタイル
+│   └── html/              # HTMLテンプレート
+│       ├── index.html     # メインHTML
+│       ├── debug.html     # デバッグページ
+│       └── test.html      # テストページ
+├── assets/                 # 静的アセット
+│   ├── images/            # 画像ファイル
+│   ├── icons/             # アイコンファイル
+│   └── fonts/             # フォントファイル
+├── docs/                   # ドキュメント
+│   └── README.md          # このファイル
+├── tests/                  # テストファイル
+│   ├── unit/              # ユニットテスト
+│   └── integration/       # 統合テスト
+├── .github/                # GitHub設定
+├── .gitignore             # Git除外設定
+├── package.json            # プロジェクト設定
+└── index.html             # エントリーポイント（リダイレクト）
 ```
+
+## 開発環境のセットアップ
+
+### 前提条件
+- Node.js 14.0.0以上
+- Python 3.x（ローカルサーバー用）
+
+### インストール
+```bash
+# リポジトリをクローン
+git clone https://github.com/junkiiwai/task-manager.git
+cd task-manager
+
+# 依存関係のインストール（必要に応じて）
+npm install
+```
+
+### 開発サーバーの起動
+```bash
+# npmスクリプトを使用
+npm run dev
+
+# または直接Pythonサーバーを起動
+python3 -m http.server 8000
+```
+
+ブラウザで `http://localhost:8000` にアクセスしてください。
 
 ## デプロイ
 
@@ -69,8 +114,8 @@ task-manager/
 
 ### ローカルでの実行
 1. リポジトリをクローン
-2. `index.html`をブラウザで開く
-3. または、ローカルサーバーを起動してアクセス
+2. `npm run dev` でローカルサーバーを起動
+3. ブラウザでアクセス
 
 ### GitHub Pagesでの公開
 1. リポジトリのSettingsタブを開く
@@ -93,4 +138,8 @@ junkiiwai
   - 階層化タスク機能
   - 進捗管理機能
   - メモ機能
-  - 担当者管理機能 
+  - 担当者管理機能
+- v1.1.0: プロジェクト構造の改善
+  - フォルダ構造の整理
+  - package.jsonの追加
+  - 開発環境の改善 

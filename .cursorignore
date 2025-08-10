@@ -1,0 +1,50 @@
+# ----------------------------
+# ビルド・配布成果物（生成物）
+# ----------------------------
+dist/
+build/
+out/
+public/
+. next/
+*.min.js
+*.bundle.js
+*.map
+
+# ----------------------------
+# パッケージ管理関連
+# ----------------------------
+node_modules/
+vendor/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ----------------------------
+# バージョン管理関連
+# ----------------------------
+.git/
+.gitignore
+
+# ----------------------------
+# IDE / エディタ設定関連
+# ----------------------------
+.vscode/
+.idea/
+*.swp
+
+# ----------------------------
+# 大きな静的ファイル
+# ----------------------------
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.mp4
+*.mov
+*.pdf
+*.zip
+*.tar
+*.gz
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
