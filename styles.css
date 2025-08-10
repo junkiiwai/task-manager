@@ -209,25 +209,25 @@ body {
     .task-row.project-row {
         width: 690px !important;
         max-width: calc(100vw - 60px) !important;
-        gap: 6px !important;
+        gap: 3px !important;
     }
 
     .task-row.child-task-row.level-1 {
         width: 670px !important;
         max-width: calc(100vw - 60px) !important;
-        gap: 6px !important;
+        gap: 3px !important;
     }
 
     .task-row.child-task-row.level-2 {
         width: 650px !important;
         max-width: calc(100vw - 60px) !important;
-        gap: 6px !important;
+        gap: 3px !important;
     }
 
     .task-row.child-task-row.level-3 {
         width: 630px !important;
         max-width: calc(100vw - 60px) !important;
-        gap: 6px !important;
+        gap: 3px !important;
     }
 }
 
@@ -296,6 +296,23 @@ body {
         white-space: nowrap !important;
     }
     
+    /* 階層に応じたタスク名の幅調整 */
+    .task-row.project-row .task-name {
+        width: 32% !important;
+    }
+    
+    .task-row.child-task-row.level-1 .task-name {
+        width: 30% !important;
+    }
+    
+    .task-row.child-task-row.level-2 .task-name {
+        width: 28% !important;
+    }
+    
+    .task-row.child-task-row.level-3 .task-name {
+        width: 25% !important;
+    }
+    
     .task-assignee {
         font-size: 7px !important;
         width: 15% !important;
@@ -344,7 +361,7 @@ body {
     
     .task-priority {
         font-size: 6px !important;
-        width: 5% !important;
+        width: 7% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
@@ -403,7 +420,7 @@ body {
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 3px !important;
+        gap: 1px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
     }
@@ -426,6 +443,23 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+    }
+    
+    /* 階層に応じたタスク名の幅調整 */
+    .task-row.project-row .task-name {
+        width: 32% !important;
+    }
+    
+    .task-row.child-task-row.level-1 .task-name {
+        width: 30% !important;
+    }
+    
+    .task-row.child-task-row.level-2 .task-name {
+        width: 28% !important;
+    }
+    
+    .task-row.child-task-row.level-3 .task-name {
+        width: 25% !important;
     }
     
     .task-assignee {
@@ -476,7 +510,7 @@ body {
     
     .task-priority {
         font-size: 8px !important;
-        width: 5% !important;
+        width: 7% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
@@ -538,7 +572,7 @@ body {
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 2px !important;
+        gap: 1px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
     }
@@ -552,6 +586,23 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+    }
+    
+    /* 階層に応じたタスク名の幅調整 */
+    .task-row.project-row .task-name {
+        width: 32% !important;
+    }
+    
+    .task-row.child-task-row.level-1 .task-name {
+        width: 30% !important;
+    }
+    
+    .task-row.child-task-row.level-2 .task-name {
+        width: 28% !important;
+    }
+    
+    .task-row.child-task-row.level-3 .task-name {
+        width: 25% !important;
     }
     
     .task-assignee {
@@ -602,7 +653,7 @@ body {
     
     .task-priority {
         font-size: 9px !important;
-        width: 5% !important;
+        width: 7% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
@@ -666,7 +717,7 @@ body {
         display: flex !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
-        gap: 3px !important;
+        gap: 2px !important;
         box-sizing: border-box !important;
         overflow-x: hidden !important;
     }
@@ -680,6 +731,23 @@ body {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+    }
+    
+    /* 階層に応じたタスク名の幅調整 */
+    .task-row.project-row .task-name {
+        width: 35% !important;
+    }
+    
+    .task-row.child-task-row.level-1 .task-name {
+        width: 32% !important;
+    }
+    
+    .task-row.child-task-row.level-2 .task-name {
+        width: 28% !important;
+    }
+    
+    .task-row.child-task-row.level-3 .task-name {
+        width: 25% !important;
     }
     
     .task-assignee {
@@ -730,7 +798,7 @@ body {
     
     .task-priority {
         font-size: 10px !important;
-        width: 5% !important;
+        width: 7% !important;
         min-width: 0 !important;
         flex-shrink: 1 !important;
         text-align: center !important;
@@ -797,25 +865,25 @@ body {
 /* 階層に応じたタスク名の横幅調整 - 大画面用（840px以上で適用） */
 @media (min-width: 841px) {
     .task-row.project-row .task-name {
-        width: 30% !important;
+        width: 35% !important;
         min-width: 0 !important;
         max-width: none !important;
     }
 
     .task-row.child-task-row.level-1 .task-name {
-        width: 30% !important;
+        width: 32% !important;
         min-width: 0 !important;
         max-width: none !important;
     }
 
     .task-row.child-task-row.level-2 .task-name {
-        width: 30% !important;
+        width: 28% !important;
         min-width: 0 !important;
         max-width: none !important;
     }
 
     .task-row.child-task-row.level-3 .task-name {
-        width: 30% !important;
+        width: 25% !important;
         min-width: 0 !important;
         max-width: none !important;
     }
@@ -835,7 +903,7 @@ body {
     }
     
     .task-deadline {
-        width: 22% !important;
+        width: 20% !important;
         min-width: 0 !important;
         max-width: none !important;
     }
@@ -854,7 +922,7 @@ body {
     }
     
     .task-priority {
-        width: 5% !important;
+        width: 7% !important;
         min-width: 0 !important;
         max-width: none !important;
         text-align: center !important;
